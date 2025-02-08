@@ -29,7 +29,7 @@
 				Padding="5"
 				HorizontalAlignment="Stretch"
 				Margin="0,0,0,10">
-			<TextBlock Text="Morven_Compatch_NFR_Patcher"
+			<TextBlock Text="Morven Compatch NFR Patcher"
 					   FontSize="24"
 					   HorizontalAlignment="Center"
 					   VerticalAlignment="Center"/>
