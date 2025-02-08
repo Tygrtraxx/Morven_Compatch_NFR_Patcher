@@ -10,7 +10,7 @@
 		Width="650" Height="600"
         x:Class="Morven_Compatch_NFR_Patcher.Views.MainWindow"
         Icon="/Assets/author.ico"
-        Title="Morven_Compatch_NFR_Patcher"
+        Title="Morven Compatch NFR Patcher"
         CanResize="False">
 	<views:MainView />
 </Window>

@@ -35,38 +35,49 @@
 					   VerticalAlignment="Center"/>
 		</Border>
 
-		<!-- Console Output Box with enhanced styling -->
+		<!-- Console Output Box with enhanced styling using a read-only TextBox that remains black -->
 		<Border Grid.Row="1"
 				Background="#1e1e1e"
-				BorderBrush="#444"
-				BorderThickness="1"
+				BorderBrush="Gray"
+				BorderThickness="3"
 				CornerRadius="4"
-				Padding="5"
 				Margin="0,10">
 			<ScrollViewer VerticalScrollBarVisibility="Auto"
 						  HorizontalScrollBarVisibility="Disabled">
 				<TextBox IsReadOnly="True"
 						 AcceptsReturn="True"
 						 TextWrapping="Wrap"
-						 Background="Transparent"
+						 Background="Black"
 						 Foreground="White"
 						 FontFamily="Consolas"
 						 BorderThickness="0"
+						 Padding="20"
 						 Text="Welcome to the Morven Compatch : NFR Patcher&#x0a;&#x0a;Please locate and choose your mod folder and Steam folder and then click Patch to begin.">
 					<TextBox.Styles>
-						<!-- Prevent the background from changing when hovered -->
-						<Style Selector="TextBox:pointerover">
-							<Setter Property="Background" Value="Transparent"/>
+						<!-- Ensure the outer TextBox always has a black background -->
+						<Style Selector="TextBox">
+							<Setter Property="Background" Value="Black"/>
 						</Style>
-						<!-- Prevent the background from changing when focused -->
+						<Style Selector="TextBox:pointerover">
+							<Setter Property="Background" Value="Black"/>
+						</Style>
 						<Style Selector="TextBox:focused">
-							<Setter Property="Background" Value="Transparent"/>
+							<Setter Property="Background" Value="Black"/>
+						</Style>
+						<Style Selector="TextBox:disabled">
+							<Setter Property="Background" Value="Black"/>
+						</Style>
+						<Style Selector="TextBox:pressed">
+							<Setter Property="Background" Value="Black"/>
+						</Style>
+						<!-- Override the internal template Border that actually displays the background -->
+						<Style Selector="TextBox /template/ Border">
+							<Setter Property="Background" Value="Black"/>
 						</Style>
 					</TextBox.Styles>
 				</TextBox>
 			</ScrollViewer>
 		</Border>
-
 
 		<!-- File Selectors -->
 		<StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,10,0,10" Spacing="5">
