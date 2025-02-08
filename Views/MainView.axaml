@@ -3,14 +3,117 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Morven_Compatch_NFR_Patcher.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
              x:Class="Morven_Compatch_NFR_Patcher.Views.MainView"
              x:DataType="vm:MainViewModel">
-  <Design.DataContext>
-    <!-- This only sets the DataContext for the previewer in an IDE,
-         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-    <vm:MainViewModel />
-  </Design.DataContext>
+	<Design.DataContext>
+		<vm:MainViewModel />
+	</Design.DataContext>
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<!-- Title -->
+			<RowDefinition Height="*"/>
+			<!-- Console output -->
+			<RowDefinition Height="Auto"/>
+			<!-- File selectors -->
+			<RowDefinition Height="Auto"/>
+			<!-- Button and version info -->
+		</Grid.RowDefinitions>
 
-  <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		<!-- Title with a Border that stretches across the window -->
+		<Border Grid.Row="0"
+				BorderBrush="Gray"
+				BorderThickness="2"
+				CornerRadius="5"
+				Padding="5"
+				HorizontalAlignment="Stretch"
+				Margin="0,0,0,10">
+			<TextBlock Text="Morven_Compatch_NFR_Patcher"
+					   FontSize="24"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Center"/>
+		</Border>
+
+		<!-- Console Output Box with enhanced styling -->
+		<Border Grid.Row="1"
+				Background="#1e1e1e"
+				BorderBrush="#444"
+				BorderThickness="1"
+				CornerRadius="4"
+				Padding="5"
+				Margin="0,10">
+			<ScrollViewer VerticalScrollBarVisibility="Auto"
+						  HorizontalScrollBarVisibility="Disabled">
+				<TextBox IsReadOnly="True"
+						 AcceptsReturn="True"
+						 TextWrapping="Wrap"
+						 Background="Transparent"
+						 Foreground="Lime"
+						 FontFamily="Consolas"
+						 BorderThickness="0"
+						 Text="Welcome to the Morven Compatch : NFR Patcher&#x0a;&#x0a;Please locate and choose your mod folder and Steam folder and then click Patch to begin." />
+			</ScrollViewer>
+		</Border>
+
+		<!-- File Selectors -->
+		<StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,10,0,10" Spacing="5">
+			<!-- Steam Folder Selector -->
+			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Spacing="5">
+				<TextBlock Text="Steam Folder:" VerticalAlignment="Center" Width="100"/>
+				<TextBox x:Name="SteamFolderTextBox"
+						 Text="{Binding SteamFolder, Mode=TwoWay}"
+						 Width="350"
+						 Watermark="Select Steam folder"/>
+				<Button Content="Browse..." Width="75"/>
+				<!-- Clickable question mark image for Steam folder -->
+				<Button Width="35" Height="35" Background="Transparent" BorderThickness="0" Click="SteamQuestionMark_Click">
+					<Image Source="avares://Morven_Compatch_NFR_Patcher/Assets/images/questionmark.png"
+						   Width="35" Height="35"/>
+				</Button>
+			</StackPanel>
+
+			<!-- Mod Folder Selector -->
+			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Spacing="5">
+				<TextBlock Text="Mod Folder:" VerticalAlignment="Center" Width="100"/>
+				<TextBox x:Name="ModFolderTextBox"
+						 Text="{Binding ModFolder, Mode=TwoWay}"
+						 Width="350"
+						 Watermark="Select mod folder"/>
+				<Button Content="Browse..." Width="75"/>
+				<!-- Clickable question mark image for Mod folder -->
+				<Button Width="35" Height="35" Background="Transparent" BorderThickness="0" Click="ModQuestionMark_Click">
+					<Image Source="avares://Morven_Compatch_NFR_Patcher/Assets/images/questionmark.png"
+						   Width="35" Height="35"/>
+				</Button>
+			</StackPanel>
+		</StackPanel>
+
+		<!-- Patch Button and Version Info -->
+		<Grid Grid.Row="3">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<!-- Enlarged Patch Button (with centered text) that is disabled until both files are selected -->
+			<Button Grid.Row="0"
+					Content="Patch"
+					HorizontalAlignment="Center"
+					Width="150"
+					Height="40"
+					Margin="0,10"
+					FontSize="25"
+					IsEnabled="{Binding CanPatch}"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"/>
+			<!-- Version Info -->
+			<TextBlock Grid.Row="1"
+					   Text="v1.0.0 by Tygrtraxx"
+					   HorizontalAlignment="Right"
+					   VerticalAlignment="Bottom"
+					   FontSize="12"
+					   Margin="0,5,5,0"/>
+		</Grid>
+
+	</Grid>
 </UserControl>

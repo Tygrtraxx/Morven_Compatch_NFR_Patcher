@@ -6,7 +6,7 @@
         xmlns:views="clr-namespace:Morven_Compatch_NFR_Patcher.Views"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Morven_Compatch_NFR_Patcher.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/author.ico"
         Title="Morven_Compatch_NFR_Patcher">
         <views:MainView />
 </Window>
