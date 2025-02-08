@@ -23,7 +23,7 @@
 
 		<!-- Title with a Border that stretches across the window -->
 		<Border Grid.Row="0"
-				BorderBrush="Gray"
+				BorderBrush="DarkRed"
 				BorderThickness="2"
 				CornerRadius="5"
 				Padding="5"
@@ -38,7 +38,7 @@
 		<!-- Console Output Box with enhanced styling using a read-only TextBox that remains black -->
 		<Border Grid.Row="1"
 				Background="#1e1e1e"
-				BorderBrush="Gray"
+				BorderBrush="DarkRed"
 				BorderThickness="3"
 				CornerRadius="4"
 				Margin="0,10">
@@ -88,7 +88,9 @@
 						 Text="{Binding SteamFolder, Mode=TwoWay}"
 						 Width="350"
 						 Watermark="Select Steam folder"/>
-				<Button Content="Browse..." Width="75"/>
+				<Button Content="Browse..." 
+						Width="75"
+						Background="Lavender"/>
 				<!-- Clickable question mark image for Steam folder -->
 				<Button Width="35" Height="35" Background="Transparent" BorderThickness="0" Click="SteamQuestionMark_Click">
 					<Image Source="avares://Morven_Compatch_NFR_Patcher/Assets/images/questionmark.png"
@@ -103,7 +105,9 @@
 						 Text="{Binding ModFolder, Mode=TwoWay}"
 						 Width="350"
 						 Watermark="Select mod folder"/>
-				<Button Content="Browse..." Width="75"/>
+				<Button Content="Browse..." 
+						Width="75"
+						Background="Lavender"/>
 				<!-- Clickable question mark image for Mod folder -->
 				<Button Width="35" Height="35" Background="Transparent" BorderThickness="0" Click="ModQuestionMark_Click">
 					<Image Source="avares://Morven_Compatch_NFR_Patcher/Assets/images/questionmark.png"
@@ -128,14 +132,15 @@
 					FontSize="25"
 					IsEnabled="{Binding CanPatch}"
 					HorizontalContentAlignment="Center"
-					VerticalContentAlignment="Center"/>
+					VerticalContentAlignment="Center"
+					Background="Black"
+					Foreground="LightBlue"/>
 			<!-- Version Info -->
 			<TextBlock Grid.Row="1"
 					   Text="v1.0.0 by Tygrtraxx"
 					   HorizontalAlignment="Right"
 					   VerticalAlignment="Bottom"
-					   FontSize="12"
-					   Margin="0,5,5,0"/>
+					   FontSize="13"/>
 		</Grid>
 
 	</Grid>
