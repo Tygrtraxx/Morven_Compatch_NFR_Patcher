@@ -94,7 +94,7 @@
 						Background="#a9cea1">
 					<Button.Styles>
 						<Style Selector="Button:pointerover /template/ ContentPresenter">
-							<Setter Property="Background" Value="Green"/>
+							<Setter Property="Background" Value="#394f30"/>
 							<Setter Property="BorderThickness" Value="1"/>
 							<Setter Property="BorderBrush" Value="DarkRed"/>
 						</Style>
@@ -102,7 +102,7 @@
 				</Button>
 				<!-- Clickable question mark image for Steam folder -->
 				<Button Width="35" Height="35" Background="Transparent" BorderThickness="0" Click="SteamQuestionMark_Click">
-					<Image Source="avares://Morven_Compatch_NFR_Patcher/Assets/images/questionmark.png"
+					<Image Source="avares://Morven_Compatch_NFR_Patcher/Assets/images/question_mark.png"
 						   Width="35" Height="35"/>
 				</Button>
 			</StackPanel>
@@ -120,7 +120,7 @@
 						Background="#a9cea1">
 					<Button.Styles>
 						<Style Selector="Button:pointerover /template/ ContentPresenter">
-							<Setter Property="Background" Value="Green"/>
+							<Setter Property="Background" Value="#394f30"/>
 							<Setter Property="BorderThickness" Value="1"/>
 							<Setter Property="BorderBrush" Value="DarkRed"/>
 						</Style>
@@ -128,7 +128,7 @@
 				</Button>
 				<!-- Clickable question mark image for Mod folder -->
 				<Button Width="35" Height="35" Background="Transparent" BorderThickness="0" Click="ModQuestionMark_Click">
-					<Image Source="avares://Morven_Compatch_NFR_Patcher/Assets/images/questionmark.png"
+					<Image Source="avares://Morven_Compatch_NFR_Patcher/Assets/images/question_mark.png"
 						   Width="35" Height="35"/>
 				</Button>
 			</StackPanel>
