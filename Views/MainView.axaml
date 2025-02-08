@@ -52,7 +52,7 @@
 						 FontFamily="Consolas"
 						 BorderThickness="0"
 						 Padding="20"
-						 Text="Welcome to the Morven Compatch : NFR Patcher&#x0a;&#x0a;Please locate and choose your mod folder and Steam folder and then click Patch to begin.">
+						 Text="Welcome to the Morven Compatch : NFR Patcher&#x0a;&#x0a;Please locate your mod and Steam folder and choose them. After, click Patch to begin.">
 					<TextBox.Styles>
 						<!-- Ensure the outer TextBox always has a black background -->
 						<Style Selector="TextBox">
