@@ -88,7 +88,7 @@
 						 Text="{Binding SteamFolder, Mode=TwoWay}"
 						 Width="350"
 						 Watermark="Select Steam folder"/>
-				<!-- Browse button with inline hover/pressed styling -->
+				<!-- Browse button with inline hover styling -->
 				<Button Content="Browse..."
 						Width="75"
 						Background="#a9cea1">
@@ -100,11 +100,41 @@
 						</Style>
 					</Button.Styles>
 				</Button>
+				
+				
+				
 				<!-- Clickable question mark image for Steam folder -->
-				<Button Width="35" Height="35" Background="Transparent" BorderThickness="0" Click="SteamQuestionMark_Click">
-					<Image Source="avares://Morven_Compatch_NFR_Patcher/Assets/images/question_mark.png"
-						   Width="35" Height="35"/>
+				<Button>
+
+
+
+					<Image Source="avares://Morven_Compatch_NFR_Patcher/Assets/images/question_mark.png">
+						<Image.Transitions>
+							<Transitions>
+								<DoubleTransition Property="Width" Duration="0:0:0.1" />
+								<DoubleTransition Property="Height" Duration="0:0:0.1" />
+							</Transitions>
+						</Image.Transitions>
+						<Image.Styles>
+							<Style Selector="Button > Image">
+								<Setter Property="Width" Value="35" />
+								<Setter Property="Height" Value="35" />
+								<Setter Property="Margin" Value="-10"/>
+							</Style>
+							<Style Selector="Button:pointerover > Image">
+								<Setter Property="Source" Value="avares://Morven_Compatch_NFR_Patcher/Assets/images/question_mark_hover.png"/>
+								<Setter Property="Width" Value="40" />
+								<Setter Property="Height" Value="40" />
+								<Setter Property="Margin" Value="-10"/>
+							</Style>
+						</Image.Styles>
+					</Image>
+
+
 				</Button>
+				
+				
+				
 			</StackPanel>
 
 			<!-- Mod Folder Selector -->
@@ -114,7 +144,7 @@
 						 Text="{Binding ModFolder, Mode=TwoWay}"
 						 Width="350"
 						 Watermark="Select mod folder"/>
-				<!-- Browse button with inline hover/pressed styling -->
+				<!-- Browse button with inline hover styling -->
 				<Button Content="Browse..."
 						Width="75"
 						Background="#a9cea1">
@@ -128,8 +158,12 @@
 				</Button>
 				<!-- Clickable question mark image for Mod folder -->
 				<Button Width="35" Height="35" Background="Transparent" BorderThickness="0" Click="ModQuestionMark_Click">
-					<Image Source="avares://Morven_Compatch_NFR_Patcher/Assets/images/question_mark.png"
-						   Width="35" Height="35"/>
+					<Image Source="avares://Morven_Compatch_NFR_Patcher/Assets/images/question_mark.png" Width="35" Height="35"/>
+					<Button.Styles>
+						<Style Selector="Button:pointerover /template/ ContentPresenter">
+							<Setter Property="Background" Value="white"/>
+						</Style>
+					</Button.Styles>
 				</Button>
 			</StackPanel>
 		</StackPanel>
