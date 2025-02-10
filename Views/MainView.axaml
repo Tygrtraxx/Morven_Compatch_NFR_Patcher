@@ -1,221 +1,304 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:Morven_Compatch_NFR_Patcher.ViewModels"
-			 xmlns:local="clr-namespace:Morven_Compatch_NFR_Patcher.Converters"
-             mc:Ignorable="d" d:DesignWidth="650" d:DesignHeight="600"
-             x:Class="Morven_Compatch_NFR_Patcher.Views.MainView"
-             x:DataType="vm:MainViewModel">
-	<UserControl.Resources>
-		<local:PointerOverToImageConverter x:Key="PointerOverToImageConverter"/>
-	</UserControl.Resources>
-	<Design.DataContext>
-		<vm:MainViewModel />
-	</Design.DataContext>
-	<Grid Margin="20">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<!-- Title -->
-			<RowDefinition Height="*"/>
-			<!-- Console output -->
-			<RowDefinition Height="Auto"/>
-			<!-- File selectors -->
-			<RowDefinition Height="Auto"/>
-			<!-- Button and version info -->
-		</Grid.RowDefinitions>
+<!--
+    //============================================================================
+    // Name        : MainView.axaml
+    // Author(s)   : Tygrtraxx
+    // Version     : 1.0.0
+    // Created on  : Feb 8, 2025.
+    // Description : Main program / Main View, where everything is done
+    //============================================================================
+    
+    Line 23 : Associates this XAML file with the code-behind class 'MainView' in the specified namespace
+    Line 24 : Sets the default XML namespace for Avalonia UI elements
+    Line 25 : Provides XAML language constructs (e.g. x:Class, x:Name, etc.)
+    Line 26 : Used for design-time properties and data in Visual Studio
+    Line 27 : Maps the 'local' prefix to the CLR namespace that contains the Converters
+    Line 28 : Enables markup compatibility features, such as ignoring design-time attributes at runtime
+    Line 29 : Maps the 'vm' prefix to the CLR namespace that contains the ViewModels
+    Line 30 : Specifies the design-time height for the control in the designer
+    Line 32 : Specifies the design-time width for the control in the designer
+    Line 33 : Declares that the DataContext for this UserControl is of type 'MainViewModel' for compile-time binding checks
+    Line 33 : Instructs the XAML parser to ignore all attributes in the 'd' (design-time) namespace at runtime
+-->
+<UserControl
+    x:Class="Morven_Compatch_NFR_Patcher.Views.MainView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Morven_Compatch_NFR_Patcher.Converters"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:Morven_Compatch_NFR_Patcher.ViewModels"
+    d:DesignHeight="600"
+    d:DesignWidth="650"
+    x:DataType="vm:MainViewModel"
+    mc:Ignorable="d">
 
-		<!-- Title with a Border that stretches across the window -->
-		<Border Grid.Row="0"
-				BorderBrush="DarkRed"
-				BorderThickness="2"
-				CornerRadius="5"
-				Padding="5"
-				HorizontalAlignment="Stretch"
-				Margin="0,0,0,10">
-			<TextBlock Text="Morven Compatch NFR Patcher"
-					   FontSize="24"
-					   HorizontalAlignment="Center"
-					   VerticalAlignment="Center"/>
-		</Border>
+    <!--  Defines reusable objects for this UserControl  -->
+    <!--  PointerOverToImageConverter - When the user hovers over an image with the mouse pointer it makes the image change  -->
+    <UserControl.Resources>
+        <local:PointerOverToImageConverter x:Key="PointerOverToImageConverter" />
+    </UserControl.Resources>
 
-		<!-- Console Output Box with enhanced styling using a read-only TextBox that remains black -->
-		<Border Grid.Row="1"
-				Background="#1e1e1e"
-				BorderBrush="DarkRed"
-				BorderThickness="3"
-				CornerRadius="4"
-				Margin="0,10">
-			<ScrollViewer VerticalScrollBarVisibility="Auto"
-						  HorizontalScrollBarVisibility="Disabled">
-				<TextBox IsReadOnly="True"
-						 AcceptsReturn="True"
-						 TextWrapping="Wrap"
-						 Background="Black"
-						 Foreground="White"
-						 FontFamily="Consolas"
-						 BorderThickness="0"
-						 Padding="20"
-						 Text="Welcome to the Morven Compatch : NFR Patcher&#x0a;&#x0a;Please locate your mod and Steam folder and choose them. After, click Patch to begin.">
-					<TextBox.Styles>
-						<!-- Ensure the outer TextBox always has a black background -->
-						<Style Selector="TextBox">
-							<Setter Property="Background" Value="Black"/>
-						</Style>
-						<Style Selector="TextBox:pointerover">
-							<Setter Property="Background" Value="Black"/>
-						</Style>
-						<Style Selector="TextBox:focused">
-							<Setter Property="Background" Value="Black"/>
-						</Style>
-						<Style Selector="TextBox:disabled">
-							<Setter Property="Background" Value="Black"/>
-						</Style>
-						<Style Selector="TextBox:pressed">
-							<Setter Property="Background" Value="Black"/>
-						</Style>
-						<!-- Override the internal template Border that displays the background -->
-						<Style Selector="TextBox /template/ Border">
-							<Setter Property="Background" Value="Black"/>
-						</Style>
-					</TextBox.Styles>
-				</TextBox>
-			</ScrollViewer>
-		</Border>
+    <!--  Sets a design-time DataContext for this UserControl  -->
 
-		<!-- File Selectors -->
-		<StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,10,0,10" Spacing="5">
-			<!-- Steam Folder Selector -->
-			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Spacing="5">
-				<TextBlock Text="Steam Folder:" VerticalAlignment="Center" Width="100"/>
-				<TextBox x:Name="SteamFolderTextBox"
-						 Text="{Binding SteamFolder, Mode=TwoWay}"
-						 Width="350"
-						 Watermark="Select Steam folder"/>
-				<!-- Browse button with inline hover styling -->
-				<Button Content="Browse..."
-						Width="75"
-						Background="#a9cea1">
-					<Button.Styles>
-						<Style Selector="Button:pointerover /template/ ContentPresenter">
-							<Setter Property="Background" Value="#394f30"/>
-							<Setter Property="BorderThickness" Value="1"/>
-							<Setter Property="BorderBrush" Value="DarkRed"/>
-						</Style>
-					</Button.Styles>
-				</Button>
+    <!--  This enables the Visual Studio Designer to display sample data and provide IntelliSense  -->
+    <!--  for data bindings while designing the UI  -->
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
 
+    <!--  Create a grid for the UI that holds all the elements  -->
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <!--  Title  -->
+            <RowDefinition Height="Auto" />
+            <!--  Console output textbox  -->
+            <RowDefinition Height="*" />
+            <!--  File selectors  -->
+            <RowDefinition Height="Auto" />
+            <!--  Patch button and version info  -->
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-				<!-- Clickable question mark image for Steam folder -->
-				<Button x:Name="steam_info_btn"
-						Width="35" Height="35"
-						Background="Transparent"
-						BorderThickness="0"
-						Click="SteamQuestionMark_Click"
-						ClipToBounds="False">
-					<!-- Place the style for the internal PART_ContentPresenter here, in the Button's styles -->
-					<Button.Styles>
-						<Style Selector="Button:pointerover /template/ ContentPresenter">
-							<Setter Property="Background" Value="Transparent"/>
-						</Style>
-					</Button.Styles>
-					<Button.Content>
-						<Image x:Name="steam_info_img"
-							   Source="{Binding IsPointerOver, RelativeSource={RelativeSource AncestorType=Button}, Converter={StaticResource PointerOverToImageConverter}}">
-							<!-- Transition for smooth resizing on hover -->
-							<Image.Transitions>
-								<Transitions>
-									<DoubleTransition Property="Width" Duration="0:0:0.1" />
-									<DoubleTransition Property="Height" Duration="0:0:0.1" />
-								</Transitions>
-							</Image.Transitions>
-							<!-- Default and hover styles for resizing the image -->
-							<Image.Styles>
-								<!-- Default style: image is 35x35 with a negative margin -->
-								<Style Selector="Image" x:SetterTargetType="Image">
-									<Setter Property="Width" Value="35"/>
-									<Setter Property="Height" Value="35"/>
-									<Setter Property="Margin" Value="-10"/>
-								</Style>
-								<!-- When the Button is hovered, enlarge the image to 40x40 -->
-								<Style Selector="Button:pointerover > Image" x:SetterTargetType="Image">
-									<Setter Property="Width" Value="40"/>
-									<Setter Property="Height" Value="40"/>
-									<Setter Property="Margin" Value="-10"/>
-								</Style>
-							</Image.Styles>
-						</Image>
-					</Button.Content>
-				</Button>
+        <!--  Title with a border that stretches across the window  -->
+        <Border
+            Grid.Row="0"
+            Margin="0,0,0,10"
+            Padding="5"
+            HorizontalAlignment="Stretch"
+            BorderBrush="DarkRed"
+            BorderThickness="2"
+            CornerRadius="5">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="24"
+                Text="Morven Compatch NFR Patcher" />
+        </Border>
 
+        <!--  Console output with enhanced styling using a read-only TextBox that remains black  -->
+        <Border
+            Grid.Row="1"
+            Margin="0,10"
+            Background="Black"
+            BorderBrush="DarkRed"
+            BorderThickness="3"
+            CornerRadius="4">
 
+            <!--  Disable scrolling for the textbox and make it read only  -->
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
+                <TextBox
+                    Padding="20"
+                    AcceptsReturn="True"
+                    Background="Black"
+                    BorderThickness="0"
+                    FontFamily="Consolas"
+                    Foreground="White"
+                    IsReadOnly="True"
+                    Text="Welcome to the Morven Compatch : NFR Patcher&#x0a;&#x0a;Please locate your mod and Steam folder and choose them. Afterwards, click the Patch button to begin."
+                    TextWrapping="Wrap">
+                    <TextBox.Styles>
 
+                        <!--  Override the internal template Border that displays the background  -->
+                        <!--  So that it always displays black to the user  -->
+                        <Style Selector="TextBox /template/ Border">
+                            <Setter Property="Background" Value="Black" />
+                        </Style>
 
+                    </TextBox.Styles>
+                </TextBox>
+            </ScrollViewer>
+        </Border>
 
+        <!--  File Selectors  -->
+        <StackPanel
+            Grid.Row="2"
+            Margin="0,10,0,10"
+            Orientation="Vertical"
+            Spacing="5">
 
+            <!--  Steam Folder Selector  -->
+            <StackPanel
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="5">
+                <TextBlock
+                    Width="100"
+                    VerticalAlignment="Center"
+                    Text="Steam Folder:" />
+                <TextBox
+                    x:Name="SteamFolderTextBox"
+                    Width="350"
+                    Text="{Binding SteamFolder, Mode=TwoWay}"
+                    Watermark="Select Steam folder" />
 
-			</StackPanel>
+                <!--  Browse button with inline hover styling  -->
+                <Button
+                    Width="75"
+                    Background="#a9cea1"
+                    Content="Browse...">
+                    <Button.Styles>
+                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="#394f30" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="BorderBrush" Value="DarkRed" />
+                        </Style>
+                    </Button.Styles>
+                </Button>
 
-			<!-- Mod Folder Selector -->
-			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Spacing="5">
-				<TextBlock Text="Mod Folder:" VerticalAlignment="Center" Width="100"/>
-				<TextBox x:Name="ModFolderTextBox"
-						 Text="{Binding ModFolder, Mode=TwoWay}"
-						 Width="350"
-						 Watermark="Select mod folder"/>
-				<!-- Browse button with inline hover styling -->
-				<Button Content="Browse..."
-						Width="75"
-						Background="#a9cea1">
-					<Button.Styles>
-						<Style Selector="Button:pointerover /template/ ContentPresenter">
-							<Setter Property="Background" Value="#394f30"/>
-							<Setter Property="BorderThickness" Value="1"/>
-							<Setter Property="BorderBrush" Value="DarkRed"/>
-						</Style>
-					</Button.Styles>
-				</Button>
-				<!-- Clickable question mark image for Mod folder -->
-				<Button Width="35" Height="35" Background="Transparent" BorderThickness="0" Click="ModQuestionMark_Click">
-					<Image Source="avares://Morven_Compatch_NFR_Patcher/Assets/images/question_mark.png" Width="35" Height="35"/>
-					<Button.Styles>
-						<Style Selector="Button /template/ ContentPresenter#PART_ContentPresenter">
-							<Setter Property="Background" Value="Transparent"/>
-						</Style>
-						<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-							<Setter Property="Background" Value="Transparent"/>
-						</Style>
-					</Button.Styles>
-				</Button>
-			</StackPanel>
-		</StackPanel>
+                <!--  Clickable question mark image for the Steam folder  -->
+                <Button
+                    x:Name="SteamInfoButton"
+                    Width="35"
+                    Height="35"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="SteamQuestionMark_Click"
+                    ClipToBounds="False">
 
-		<!-- Patch Button and Version Info -->
-		<Grid Grid.Row="3">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-			</Grid.RowDefinitions>
-			<!-- Enlarged Patch Button (with centered text) that is disabled until both files are selected -->
-			<Button Grid.Row="0"
-					Content="Patch"
-					HorizontalAlignment="Center"
-					Width="150"
-					Height="40"
-					Margin="0,10"
-					FontSize="25"
-					IsEnabled="{Binding CanPatch}"
-					HorizontalContentAlignment="Center"
-					VerticalContentAlignment="Center"
-					Background="Black"
-					Foreground="LightBlue"/>
-			<!-- Version Info -->
-			<TextBlock Grid.Row="1"
-					   Text="v1.0.0 by Tygrtraxx"
-					   HorizontalAlignment="Right"
-					   VerticalAlignment="Bottom"
-					   FontSize="13"/>
-		</Grid>
+                    <!--  Make the button transparent on when the user hovers over it with the pointer  -->
+                    <Button.Styles>
+                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="Transparent" />
+                        </Style>
+                    </Button.Styles>
+                    <Button.Content>
+                        <Image x:Name="SteamInfoImage" Source="{Binding IsPointerOver, RelativeSource={RelativeSource AncestorType=Button}, Converter={StaticResource PointerOverToImageConverter}}">
 
-	</Grid>
+                            <!--  Transition for smooth resizing on hover  -->
+                            <Image.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Property="Width" Duration="0:0:0.1" />
+                                    <DoubleTransition Property="Height" Duration="0:0:0.1" />
+                                </Transitions>
+                            </Image.Transitions>
+
+                            <!--  Default and hover styles for resizing the image  -->
+                            <Image.Styles>
+
+                                <!--  Default style: image is 35x35  -->
+                                <Style x:SetterTargetType="Image" Selector="Image">
+                                    <Setter Property="Width" Value="35" />
+                                    <Setter Property="Height" Value="35" />
+
+                                </Style>
+
+                                <!--  When the Button is hovered, enlarge the image to 40x40  -->
+                                <Style x:SetterTargetType="Image" Selector="Button:pointerover > Image">
+                                    <Setter Property="Width" Value="40" />
+                                    <Setter Property="Height" Value="40" />
+                                </Style>
+                            </Image.Styles>
+                        </Image>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+
+            <!--  Mod Folder Selector  -->
+            <StackPanel
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="5">
+                <TextBlock
+                    Width="100"
+                    VerticalAlignment="Center"
+                    Text="Mod Folder:" />
+                <TextBox
+                    x:Name="ModFolderTextBox"
+                    Width="350"
+                    Text="{Binding ModFolder, Mode=TwoWay}"
+                    Watermark="Select mod folder" />
+                <!--  Browse button with inline hover styling  -->
+                <Button
+                    Width="75"
+                    Background="#a9cea1"
+                    Content="Browse...">
+                    <Button.Styles>
+                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="#394f30" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="BorderBrush" Value="DarkRed" />
+                        </Style>
+                    </Button.Styles>
+                </Button>
+
+                <!--  Clickable question mark image for the Mod folder  -->
+                <Button
+                    x:Name="ModInfoButton"
+                    Width="35"
+                    Height="35"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="ModQuestionMark_Click"
+                    ClipToBounds="False">
+
+                    <!--  Make the button transparent on when the user hovers over it with the pointer  -->
+                    <Button.Styles>
+                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="Transparent" />
+                        </Style>
+                    </Button.Styles>
+                    <Button.Content>
+                        <Image x:Name="ModInfoImage" Source="{Binding IsPointerOver, RelativeSource={RelativeSource AncestorType=Button}, Converter={StaticResource PointerOverToImageConverter}}">
+
+                            <!--  Transition for smooth resizing on hover  -->
+                            <Image.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Property="Width" Duration="0:0:0.1" />
+                                    <DoubleTransition Property="Height" Duration="0:0:0.1" />
+                                </Transitions>
+                            </Image.Transitions>
+
+                            <!--  Default and hover styles for resizing the image  -->
+                            <Image.Styles>
+
+                                <!--  Default style: image is 35x35  -->
+                                <Style x:SetterTargetType="Image" Selector="Image">
+                                    <Setter Property="Width" Value="35" />
+                                    <Setter Property="Height" Value="35" />
+
+                                </Style>
+
+                                <!--  When the Button is hovered, enlarge the image to 40x40  -->
+                                <Style x:SetterTargetType="Image" Selector="Button:pointerover > Image">
+                                    <Setter Property="Width" Value="40" />
+                                    <Setter Property="Height" Value="40" />
+                                </Style>
+                            </Image.Styles>
+                        </Image>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+
+        <!--  Patch Button and Version Info  -->
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!--  Enlarged Patch Button (with centered text) that is disabled until both files are selected  -->
+            <Button
+                Grid.Row="0"
+                Width="150"
+                Height="40"
+                Margin="0,10"
+                HorizontalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Background="Black"
+                Content="Patch"
+                FontSize="25"
+                Foreground="LightBlue"
+                IsEnabled="{Binding CanPatch}" />
+
+            <!--  Version Info  -->
+            <TextBlock
+                Grid.Row="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                FontSize="13"
+                Text="v1.0.0 by Tygrtraxx" />
+        </Grid>
+    </Grid>
 </UserControl>
