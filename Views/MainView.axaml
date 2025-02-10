@@ -2,22 +2,21 @@
     //============================================================================
     // Name        : MainView.axaml
     // Author(s)   : Tygrtraxx
-    // Version     : 1.0.0
     // Created on  : Feb 8, 2025.
     // Description : Main program / Main View, where everything is done
     //============================================================================
     
-    Line 23 : Associates this XAML file with the code-behind class 'MainView' in the specified namespace
-    Line 24 : Sets the default XML namespace for Avalonia UI elements
-    Line 25 : Provides XAML language constructs (e.g. x:Class, x:Name, etc.)
-    Line 26 : Used for design-time properties and data in Visual Studio
-    Line 27 : Maps the 'local' prefix to the CLR namespace that contains the Converters
-    Line 28 : Enables markup compatibility features, such as ignoring design-time attributes at runtime
-    Line 29 : Maps the 'vm' prefix to the CLR namespace that contains the ViewModels
-    Line 30 : Specifies the design-time height for the control in the designer
-    Line 32 : Specifies the design-time width for the control in the designer
-    Line 33 : Declares that the DataContext for this UserControl is of type 'MainViewModel' for compile-time binding checks
-    Line 33 : Instructs the XAML parser to ignore all attributes in the 'd' (design-time) namespace at runtime
+    Line 23 : Associates this XAML file with the code-behind class 'MainView' in the specified namespace.
+    Line 24 : Sets the default XML namespace for Avalonia UI elements.
+    Line 25 : Provides XAML language constructs (e.g. x:Class, x:Name, etc.).
+    Line 26 : Used for design-time properties and data in Visual Studio.
+    Line 27 : Maps the 'local' prefix to the CLR namespace that contains the Converters.
+    Line 28 : Enables markup compatibility features, such as ignoring design-time attributes at runtime.
+    Line 29 : Maps the 'vm' prefix to the CLR namespace that contains the ViewModels.
+    Line 30 : Specifies the design-time height for the control in the designer.
+    Line 32 : Specifies the design-time width for the control in the designer.
+    Line 33 : Declares that the DataContext for this UserControl is of type 'MainViewModel' for compile-time binding checks.
+    Line 33 : Instructs the XAML parser to ignore all attributes in the 'd' (design-time) namespace at runtime.
 -->
 <UserControl
     x:Class="Morven_Compatch_NFR_Patcher.Views.MainView"
@@ -32,21 +31,21 @@
     x:DataType="vm:MainViewModel"
     mc:Ignorable="d">
 
-    <!--  Defines reusable objects for this UserControl  -->
-    <!--  PointerOverToImageConverter - When the user hovers over an image with the mouse pointer it makes the image change  -->
+    <!--  Defines reusable objects for this UserControl.  -->
+    <!--  PointerOverToImageConverter - When the user hovers over an image with the mouse pointer it makes the image change.  -->
     <UserControl.Resources>
         <local:PointerOverToImageConverter x:Key="PointerOverToImageConverter" />
     </UserControl.Resources>
 
-    <!--  Sets a design-time DataContext for this UserControl  -->
+    <!--  Sets a design-time DataContext for this UserControl.  -->
 
-    <!--  This enables the Visual Studio Designer to display sample data and provide IntelliSense  -->
-    <!--  for data bindings while designing the UI  -->
+    <!--  This enables the Visual Studio Designer to display sample data and provide IntelliSense.  -->
+    <!--  for data bindings while designing the UI.  -->
     <Design.DataContext>
         <vm:MainViewModel />
     </Design.DataContext>
 
-    <!--  Create a grid for the UI that holds all the elements  -->
+    <!--  Create a grid for the UI that holds all the elements.  -->
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <!--  Title  -->
@@ -59,7 +58,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!--  Title with a border that stretches across the window  -->
+        <!--  Title with a border that stretches across the window.  -->
         <Border
             Grid.Row="0"
             Margin="0,0,0,10"
@@ -75,7 +74,7 @@
                 Text="Morven Compatch NFR Patcher" />
         </Border>
 
-        <!--  Console output with enhanced styling using a read-only TextBox that remains black  -->
+        <!--  Console output with enhanced styling using a read-only TextBox that remains black.  -->
         <Border
             Grid.Row="1"
             Margin="0,10"
@@ -84,7 +83,7 @@
             BorderThickness="3"
             CornerRadius="4">
 
-            <!--  Disable scrolling for the textbox and make it read only  -->
+            <!--  Disable scrolling for the textbox and make it read only.  -->
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
                 <TextBox
                     Padding="20"
@@ -98,8 +97,8 @@
                     TextWrapping="Wrap">
                     <TextBox.Styles>
 
-                        <!--  Override the internal template Border that displays the background  -->
-                        <!--  So that it always displays black to the user  -->
+                        <!--  Override the internal template Border that displays the background,  -->
+                        <!--  so that it always displays black to the user.  -->
                         <Style Selector="TextBox /template/ Border">
                             <Setter Property="Background" Value="Black" />
                         </Style>
@@ -109,14 +108,14 @@
             </ScrollViewer>
         </Border>
 
-        <!--  File Selectors  -->
+        <!--  File Selectors.  -->
         <StackPanel
             Grid.Row="2"
             Margin="0,10,0,10"
             Orientation="Vertical"
             Spacing="5">
 
-            <!--  Steam Folder Selector  -->
+            <!--  Steam Folder Selector.  -->
             <StackPanel
                 VerticalAlignment="Center"
                 Orientation="Horizontal"
@@ -131,7 +130,7 @@
                     Text="{Binding SteamFolder, Mode=TwoWay}"
                     Watermark="Select Steam folder" />
 
-                <!--  Browse button with inline hover styling  -->
+                <!--  Browse button with inline hover styling.  -->
                 <Button
                     Width="75"
                     Background="#a9cea1"
@@ -145,7 +144,7 @@
                     </Button.Styles>
                 </Button>
 
-                <!--  Clickable question mark image for the Steam folder  -->
+                <!--  Clickable question mark image for the Steam folder.  -->
                 <Button
                     x:Name="SteamInfoButton"
                     Width="35"
@@ -155,7 +154,7 @@
                     Click="SteamQuestionMark_Click"
                     ClipToBounds="False">
 
-                    <!--  Make the button transparent on when the user hovers over it with the pointer  -->
+                    <!--  Make the button transparent on when the user hovers over it with the pointer.  -->
                     <Button.Styles>
                         <Style Selector="Button:pointerover /template/ ContentPresenter">
                             <Setter Property="Background" Value="Transparent" />
@@ -164,7 +163,7 @@
                     <Button.Content>
                         <Image x:Name="SteamInfoImage" Source="{Binding IsPointerOver, RelativeSource={RelativeSource AncestorType=Button}, Converter={StaticResource PointerOverToImageConverter}}">
 
-                            <!--  Transition for smooth resizing on hover  -->
+                            <!--  Transition for smooth resizing on hover.  -->
                             <Image.Transitions>
                                 <Transitions>
                                     <DoubleTransition Property="Width" Duration="0:0:0.1" />
@@ -172,17 +171,17 @@
                                 </Transitions>
                             </Image.Transitions>
 
-                            <!--  Default and hover styles for resizing the image  -->
+                            <!--  Default and hover styles for resizing the image.  -->
                             <Image.Styles>
 
-                                <!--  Default style: image is 35x35  -->
+                                <!--  Default style: image is 35x35.  -->
                                 <Style x:SetterTargetType="Image" Selector="Image">
                                     <Setter Property="Width" Value="35" />
                                     <Setter Property="Height" Value="35" />
 
                                 </Style>
 
-                                <!--  When the Button is hovered, enlarge the image to 40x40  -->
+                                <!--  When the Button is hovered, enlarge the image to 40x40.  -->
                                 <Style x:SetterTargetType="Image" Selector="Button:pointerover > Image">
                                     <Setter Property="Width" Value="40" />
                                     <Setter Property="Height" Value="40" />
@@ -193,7 +192,7 @@
                 </Button>
             </StackPanel>
 
-            <!--  Mod Folder Selector  -->
+            <!--  Mod Folder Selector.  -->
             <StackPanel
                 VerticalAlignment="Center"
                 Orientation="Horizontal"
@@ -207,7 +206,7 @@
                     Width="350"
                     Text="{Binding ModFolder, Mode=TwoWay}"
                     Watermark="Select mod folder" />
-                <!--  Browse button with inline hover styling  -->
+                <!--  Browse button with inline hover styling.  -->
                 <Button
                     Width="75"
                     Background="#a9cea1"
@@ -221,7 +220,7 @@
                     </Button.Styles>
                 </Button>
 
-                <!--  Clickable question mark image for the Mod folder  -->
+                <!--  Clickable question mark image for the Mod folder.  -->
                 <Button
                     x:Name="ModInfoButton"
                     Width="35"
@@ -231,7 +230,7 @@
                     Click="ModQuestionMark_Click"
                     ClipToBounds="False">
 
-                    <!--  Make the button transparent on when the user hovers over it with the pointer  -->
+                    <!--  Make the button transparent on when the user hovers over it with the pointer.  -->
                     <Button.Styles>
                         <Style Selector="Button:pointerover /template/ ContentPresenter">
                             <Setter Property="Background" Value="Transparent" />
@@ -248,7 +247,7 @@
                                 </Transitions>
                             </Image.Transitions>
 
-                            <!--  Default and hover styles for resizing the image  -->
+                            <!--  Default and hover styles for resizing the image.  -->
                             <Image.Styles>
 
                                 <!--  Default style: image is 35x35  -->
@@ -258,7 +257,7 @@
 
                                 </Style>
 
-                                <!--  When the Button is hovered, enlarge the image to 40x40  -->
+                                <!--  When the Button is hovered, enlarge the image to 40x40.  -->
                                 <Style x:SetterTargetType="Image" Selector="Button:pointerover > Image">
                                     <Setter Property="Width" Value="40" />
                                     <Setter Property="Height" Value="40" />
@@ -270,14 +269,14 @@
             </StackPanel>
         </StackPanel>
 
-        <!--  Patch Button and Version Info  -->
+        <!--  Patch Button and Version Info.  -->
         <Grid Grid.Row="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <!--  Enlarged Patch Button (with centered text) that is disabled until both files are selected  -->
+            <!--  Enlarged Patch Button (with centered text) that is disabled until both files are selected.  -->
             <Button
                 Grid.Row="0"
                 Width="150"
@@ -292,7 +291,7 @@
                 Foreground="LightBlue"
                 IsEnabled="{Binding CanPatch}" />
 
-            <!--  Version Info  -->
+            <!--  Version Info.  -->
             <TextBlock
                 Grid.Row="1"
                 HorizontalAlignment="Right"

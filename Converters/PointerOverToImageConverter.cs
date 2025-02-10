@@ -1,10 +1,36 @@
-﻿//============================================================================
-// Name        : PointerOverToImageConverter.cs
-// Author(s)   : Tygrtraxx
-// Version     : 1.0.0
-// Created on  : Feb 8, 2025.
-// Description : Allows the user to see different question mark images depending if their pointer is hovering over it
-//============================================================================
+﻿/*=============================================================================================*
+ * Class: PointerOverToImageConverter
+ *
+ * Description:
+ *   This converter is used to dynamically switch between two different question mark images
+ *   based on whether the mouse pointer is hovering over a control (typically a Button).
+ *   It implements IValueConverter from Avalonia, converting a boolean value (usually the Button's
+ *   IsPointerOver property) into a Bitmap image.
+ *
+ *   When the bound value is true (indicating that the pointer is over the control), this 
+ *   converter returns a Bitmap loaded from the 'question_mark_hover.png' resource. Otherwise,
+ *   it returns a Bitmap loaded from the default 'question_mark.png' resource.
+ *
+ *   The converter uses the static AssetLoader class (introduced in Avalonia 11) to open a stream
+ *   for the resource URI and create a Bitmap. Both image files must be correctly located and marked
+ *   as AvaloniaResource.
+ *
+ * Usage:
+ *   Bind the Source property of an Image control to the IsPointerOver property of its parent
+ *   Button, using this converter. For example:
+ *
+ *     Source="{Binding IsPointerOver, RelativeSource={RelativeSource AncestorType=Button}, 
+ *              Converter={StaticResource PointerOverToImageConverter}}"
+ *
+ * Dependencies:
+ *   - Avalonia.Data.Converters.IValueConverter for data conversion.
+ *   - Avalonia.Media.Imaging.Bitmap to represent images.
+ *   - Avalonia.Platform.AssetLoader for loading images from the embedded resources.
+ *
+ * Note:
+ *   The ConvertBack method is not implemented, as this converter is intended for one-way binding only.
+ *
+ *=============================================================================================*/
 
 #nullable enable
 using System;
@@ -15,7 +41,7 @@ using Avalonia.Platform;
 
 namespace Morven_Compatch_NFR_Patcher.Converters
 {
-    //Converts a boolean value into an image. Depending on the value, it will either return question_mark image (0) or question_mark_hover image(1).
+    // Converts a boolean value into an image. Depending on the value, it will either return question_mark image or question_mark_hover image.
     public class PointerOverToImageConverter : IValueConverter
     {
         /*=============================================================================================*
