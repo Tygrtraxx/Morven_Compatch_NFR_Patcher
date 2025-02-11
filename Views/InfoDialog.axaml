@@ -1,20 +1,50 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        x:Class="Morven_Compatch_NFR_Patcher.Views.InfoDialog"
-        Title="Information"
-		Icon="/Assets/images/information.png"
-        Width="400" Height="200"
-        WindowStartupLocation="CenterOwner">
-	<Grid Margin="10">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="*"/>
-			<RowDefinition Height="Auto"/>
-		</Grid.RowDefinitions>
-		<!-- Explanatory text -->
-		<TextBlock TextWrapping="Wrap"
-				   Text="This is your explanation text. Provide any helpful details here so the user knows what to do."
-				   VerticalAlignment="Center"/>
-		<!-- OK Button -->
-		<Button Grid.Row="1" Content="OK" HorizontalAlignment="Right" Margin="0,10,0,0" Click="OkButton_Click"/>
-	</Grid>
+<!--
+    InfoDialog.axaml
+    
+    This file defines a simple dialog window that displays informational text
+    and an OK button. The dialog is centered on the owner window and uses a
+    predefined icon. It is used to show context-specific messages (e.g. help text)
+    when the user clicks on certain question mark buttons.
+    
+    Line 19: Sets the default XML namespace for Avalonia UI elements.
+    Line 20: Provides XAML language features such as x:Class and x:Name.
+    Line 21: Associates this XAML file with the code-behind class 'InfoDialog'.
+    Line 22: Sets the window title.
+    Line 23: Specifies the icon for the window; ensure the icon file exists and is marked as AvaloniaResource.
+    Line 24: Sets the runtime width of the window.
+    Line 25: Sets the runtime height of the window.
+    Line 26: Centers the window relative to its owner when opened.
+-->
+<Window
+    x:Class="Morven_Compatch_NFR_Patcher.Views.InfoDialog"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Information"
+    Width="400"
+    Height="200"
+    Icon="/Assets/images/information.png"
+    WindowStartupLocation="CenterOwner">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <!--  The first row (Height="*") expands to fill available space and is used for the explanation text.  -->
+            <RowDefinition Height="*" />
+            <!--  The second row (Height="Auto") sizes itself to its content and holds the OK button.  -->
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  Explanatory text block  -->
+        <TextBlock
+            VerticalAlignment="Center"
+            Text="{Binding Message}"
+            TextWrapping="Wrap" />
+
+        <!--  OK Button  -->
+        <Button
+            Grid.Row="1"
+            Margin="0,10,0,0"
+            HorizontalAlignment="Right"
+            Click="OkButton_Click"
+            Content="OK" />
+    </Grid>
 </Window>

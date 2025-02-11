@@ -27,6 +27,8 @@ namespace Morven_Compatch_NFR_Patcher.Views
         private async void SteamQuestionMark_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new InfoDialog();
+            // Set the message on the dialog's view model.
+            dialog.ViewModel.Message = "This is the Steam folder explanation text.";
             await dialog.ShowDialog(GetParentWindow());
         }
 
@@ -35,6 +37,8 @@ namespace Morven_Compatch_NFR_Patcher.Views
         private async void ModQuestionMark_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new InfoDialog();
+            // Set the message on the dialog's view model.
+            dialog.ViewModel.Message = "This is the Mod folder explanation text.";
             await dialog.ShowDialog(GetParentWindow());
         }
 
@@ -42,13 +46,8 @@ namespace Morven_Compatch_NFR_Patcher.Views
         // It attempts to cast the VisualRoot to a Window. If unsuccessful, it throws an exception.
         private Window GetParentWindow()
         {
-            // Try to cast VisualRoot to Window.
-            var window = this.VisualRoot as Window;
-            if (window == null)
-            {
-                // If VisualRoot is null or not a Window, throw an exception.
+            if (this.VisualRoot is not Window window)
                 throw new InvalidOperationException("The control is not attached to a Window.");
-            }
             return window;
         }
     }

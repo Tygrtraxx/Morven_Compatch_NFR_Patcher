@@ -1,39 +1,48 @@
-/*=============================================================================================*
- * Class: InfoDialog
- *
- * Description:
- *   This class represents a simple informational dialog window.
- *   It inherits from Avalonia.Controls.Window, which is a top-level window in an Avalonia application.
- *
- *   The dialog is initialized by loading its XAML definition via AvaloniaXamlLoader.
- *   It typically contains an OK button that, when clicked, closes the dialog.
- *=============================================================================================*/
-
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Morven_Compatch_NFR_Patcher.ViewModels;
 
 namespace Morven_Compatch_NFR_Patcher.Views
 {
+    /*=============================================================================================*
+     * Class: InfoDialog
+     *
+     * Description:
+     *   This dialog window displays informational text that is provided by its view model.
+     *   It includes an OK button that closes the window.
+     *=============================================================================================*/
     public partial class InfoDialog : Window
     {
-        // Constructor: Initializes a new instance of InfoDialog. It then calls InitializeComponent() to load the XAML-defined UI for the dialog.
+        // Expose the view model for the dialog.
+        public InfoDialogViewModel ViewModel { get; } = new InfoDialogViewModel();
+
+        // Constructor: Initializes the dialog and sets the DataContext to the view model.
         public InfoDialog()
         {
             InitializeComponent();
+            DataContext = ViewModel;
         }
 
-        // This method is automatically generated to wire up the UI components defined in the XAML.
+        // Loads the XAML defined for this dialog.
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
         }
 
-        // OkButton_Click:
+        /*=============================================================================================*
+         * Function: OkButton_Click
+         *
+         * Description:
+         *   Event handler for the OK button click event.
+         *   When invoked, it closes the dialog.
+         *
+         * @var sender: The source of the event.
+         * @var e: The event data.
+         *=============================================================================================*/
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
     }
 }
-

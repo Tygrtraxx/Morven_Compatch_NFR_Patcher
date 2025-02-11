@@ -1,4 +1,6 @@
 <!--
+    App.axaml
+    
     Line 8: Sets the default XML namespace to Avalonia UI.
     Line 9: Provides XAML language constructs (e.g. x:Class, x:Name).
     Line 10: Links this XAML file to the code-behind class (App) in the specified namespace.
