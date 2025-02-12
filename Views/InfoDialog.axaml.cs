@@ -1,3 +1,11 @@
+/*=============================================================================================*
+* Class: InfoDialog
+*
+* Description:
+*   This dialog window displays informational text that is provided by its view model.
+*   It includes an OK button that closes the window.
+*=============================================================================================*/
+
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
@@ -5,13 +13,6 @@ using Morven_Compatch_NFR_Patcher.ViewModels;
 
 namespace Morven_Compatch_NFR_Patcher.Views
 {
-    /*=============================================================================================*
-     * Class: InfoDialog
-     *
-     * Description:
-     *   This dialog window displays informational text that is provided by its view model.
-     *   It includes an OK button that closes the window.
-     *=============================================================================================*/
     public partial class InfoDialog : Window
     {
         // Expose the view model for the dialog.

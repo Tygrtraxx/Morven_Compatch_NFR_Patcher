@@ -1,16 +1,16 @@
 ﻿/*=============================================================================================*
- * Class: MainViewModel
- *
- * Description: 
- *   This ViewModel serves as the primary data context for the main UI. It holds the 
- *   folder paths for the Steam folder and mod folder, and provides a computed property 
- *   'CanPatch' which indicates whether both folders have been specified.
- *
- *   The class inherits from ViewModelBase, which in turn inherits from ObservableObject.
- *   ObservableObject implements INotifyPropertyChanged so that the UI automatically updates 
- *   when properties change. The [ObservableProperty] attribute generates properties and 
- *   raises change notifications automatically.
- *=============================================================================================*/
+* Class: MainViewModel
+*
+* Description: 
+*   This ViewModel serves as the primary data context for the main UI. It holds the 
+*   folder paths for the Steam folder and mod folder, and provides a computed property 
+*   'CanPatch' which indicates whether both folders have been specified.
+*
+*   The class inherits from ViewModelBase, which in turn inherits from ObservableObject.
+*   ObservableObject implements INotifyPropertyChanged so that the UI automatically updates 
+*   when properties change. The [ObservableProperty] attribute generates properties and 
+*   raises change notifications automatically.
+*=============================================================================================*/
 
 using CommunityToolkit.Mvvm.ComponentModel;
 
