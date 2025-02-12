@@ -98,8 +98,17 @@ namespace Morven_Compatch_NFR_Patcher.Views
             // Clear the console to make way for the next message to show the user.
             ConsoleOutputTextBlock.Inlines.Clear();
 
-            // Validate that both folder paths are provided.
-            if (string.IsNullOrWhiteSpace(SteamFolderTextBox.Text) || string.IsNullOrWhiteSpace(ModFolderTextBox.Text))
+            // TODO: Add the ability to check if the user has already patched their game.
+            /*
+            if ()
+            {
+                ConsoleOutputTextBox.Text = "Error: The files have already been patched.";
+                return;
+            }
+            */
+
+            // Validate that both folder paths are provided
+            if (string.IsNullOrWhiteSpace(SteamFolderTextBox.Text) || string.IsNullOrWhiteSpace(ModFolderTextBox.Text) || (!Directory.Exists(SteamFolderTextBox.Text) && !Directory.Exists(ModFolderTextBox.Text)))
             {
                 // Add an error message in red.
                 ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run

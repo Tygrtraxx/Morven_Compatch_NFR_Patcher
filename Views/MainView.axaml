@@ -74,7 +74,7 @@
                 Text="Morven Compatch : NFR Patcher" />
         </Border>
 
-        <!--  Console output with enhanced styling using a read-only TextBox that remains black.  -->
+        <!--  Console output with enhanced styling using a read-only TextBlock that remains black.  -->
         <Border
             Grid.Row="1"
             Margin="0,10"
