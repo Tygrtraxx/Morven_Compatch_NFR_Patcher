@@ -35,6 +35,7 @@
 
         <!--  Explanatory text block  -->
         <TextBlock
+            HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Text="{Binding Message}"
             TextWrapping="Wrap" />

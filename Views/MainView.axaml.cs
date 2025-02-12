@@ -28,7 +28,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
         {
             var dialog = new InfoDialog();
             // Set the message on the dialog's view model.
-            dialog.ViewModel.Message = "This is the Steam folder explanation text.";
+            dialog.ViewModel.Message = "Open Steam’s Settings, navigate to \n Downloads -> Steam Library Folder \n and check the installation path.";
             await dialog.ShowDialog(GetParentWindow());
         }
 
@@ -38,7 +38,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
         {
             var dialog = new InfoDialog();
             // Set the message on the dialog's view model.
-            dialog.ViewModel.Message = "This is the Mod folder explanation text.";
+            dialog.ViewModel.Message = "Typically the mod folder is in your user’s Documents or AppData folder.";
             await dialog.ShowDialog(GetParentWindow());
         }
 
