@@ -1,11 +1,11 @@
 ﻿/*=============================================================================================*
- * Class: MainView
- *
- * Description:
- *   This is the code-behind for the MainView UserControl. It initializes the UI components
- *   defined in the associated XAML file (MainView.axaml) and handles user interactions,
- *   such as clicks on the question mark buttons which display an InfoDialog.
- *=============================================================================================*/
+* Class: MainView
+*
+* Description:
+*   This is the code-behind for the MainView UserControl. It initializes the UI components
+*   defined in the associated XAML file (MainView.axaml) and handles user interactions,
+*   such as clicks on the question mark buttons which display an InfoDialog.
+*=============================================================================================*/
 
 using System;
 using System.IO;
@@ -14,8 +14,9 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
 using Avalonia.Platform.Storage;
-using Morven_Compatch_NFR_Patcher.ViewModels;
 using Avalonia.Threading;
+using Morven_Compatch_NFR_Patcher.ViewModels;
+using Morven_Compatch_NFR_Patcher.Helpers;
 
 namespace Morven_Compatch_NFR_Patcher.Views
 {
@@ -491,14 +492,6 @@ namespace Morven_Compatch_NFR_Patcher.Views
             }
             else
             {
-                // Optionally, report an error if the mod file does not exist.
-                ConsoleOutputTextBlock.Inlines!.Clear();
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Error: The mod file 'morven_patch_NFR.mod' was not found.",
-                    Foreground = Avalonia.Media.Brushes.Red
-                });
-
                 ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
                 {
                     Text = "Error: ",
@@ -531,6 +524,12 @@ namespace Morven_Compatch_NFR_Patcher.Views
 
                 return;
             }
+
+            // Define the source directory where your mod files are located.
+            string sourceDir = Path.Combine(AppContext.BaseDirectory, "Assets", "ModFiles");
+
+            // The modFolderPath should be the target mod folder the user selected.
+            FileHelper.CopyDirectory(sourceDir, modFolderPath);
 
             try
             {
@@ -570,7 +569,6 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 });
             }
         }
-
 
         // Retrieves the parent window of this control.
         // It attempts to cast the VisualRoot to a Window and throws an exception if the control is not attached.
