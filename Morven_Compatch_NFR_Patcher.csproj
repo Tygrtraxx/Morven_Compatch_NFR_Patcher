@@ -10,6 +10,19 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
+    <ItemGroup>
+	    <Content Include="Assets\ModFiles\**\*">
+		    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		    <!-- 
+                The %(RecursiveDir) metadata contains the relative path under Assets\ModFiles.
+                This Link value will copy files directly under the output directory if they are at the root of ModFiles,
+                and include subfolders (like "morven_compatch_NFR") for files inside those subdirectories.
+                The "ModFiles" folder itself is not recreated.
+            -->
+		    <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+	    </Content>
+    </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />
