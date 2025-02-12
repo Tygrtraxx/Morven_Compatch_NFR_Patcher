@@ -195,7 +195,16 @@ namespace Morven_Compatch_NFR_Patcher.Views
             }
 
             // Check if the selected folder's name is "Steam" or "steamapps".
-            string steamFolderName = Path.GetFileName(SteamFolderTextBox.Text.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+
+            // Get the path entered by the user.
+            string steamFolderPath = SteamFolderTextBox.Text;
+
+            // Trim any trailing directory separators to ensure the folder name is extracted correctly.
+            string trimmedSteamFolderPath = steamFolderPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
+            // Extract the folder name.
+            string steamFolderName = Path.GetFileName(trimmedSteamFolderPath);
+
             if (!string.Equals(steamFolderName, "Steam", StringComparison.OrdinalIgnoreCase) &&
                 !string.Equals(steamFolderName, "steamapps", StringComparison.OrdinalIgnoreCase))
             {
@@ -248,6 +257,17 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 });
 
                 return;
+            }
+
+            // If the entered folder is "Steam", check if a "steamapps" subfolder exists.
+            if (string.Equals(steamFolderName, "Steam", StringComparison.OrdinalIgnoreCase))
+            {
+                string steamappsPath = Path.Combine(trimmedSteamFolderPath, "steamapps");
+                if (Directory.Exists(steamappsPath))
+                {
+                    // Use the "steamapps" folder instead.
+                    steamFolderPath = steamappsPath;
+                }
             }
 
             try
