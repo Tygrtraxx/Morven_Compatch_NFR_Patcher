@@ -110,36 +110,78 @@ namespace Morven_Compatch_NFR_Patcher.Views
             // Validate that both folder paths are provided
             if (string.IsNullOrWhiteSpace(SteamFolderTextBox.Text) || string.IsNullOrWhiteSpace(ModFolderTextBox.Text) || (!Directory.Exists(SteamFolderTextBox.Text) && !Directory.Exists(ModFolderTextBox.Text)))
             {
-                // Add an error message in red.
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
                 {
-                    Text = "Error: Both folders must be specified.",
+                    Text = "Error: ",
                     Foreground = Avalonia.Media.Brushes.Red
                 });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Both folders are invalid or must be specified.",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
                 return;
             }
 
             // Validate that the Steam folder exists.
             if (!Directory.Exists(SteamFolderTextBox.Text))
             {
-                // Add an error message in red.
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
                 {
-                    Text = "Error: The specified Steam folder does not exist.",
+                    Text = "Error: ",
                     Foreground = Avalonia.Media.Brushes.Red
                 });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "The specified ",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Steam folder ",
+                    Foreground = Avalonia.Media.Brushes.Cyan
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "does not exist.",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
                 return;
             }
 
             // Validate that the Mod folder exists.
             if (!Directory.Exists(ModFolderTextBox.Text))
             {
-                // Add an error message in red.
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
                 {
-                    Text = "Error: The specified Mod folder does not exist.",
+                    Text = "Error: ",
                     Foreground = Avalonia.Media.Brushes.Red
                 });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "The specified ",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Mod folder ",
+                    Foreground = Avalonia.Media.Brushes.Cyan
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "does not exist.",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
                 return;
             }
 
@@ -148,20 +190,36 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 // Simulate patching logic with an asynchronous delay.
                 await Task.Delay(1000);
 
-                // On success, add a success message in green.
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
                 {
-                    Text = "The files have been patched successfully.",
+                    Text = "Success: ",
                     Foreground = Avalonia.Media.Brushes.Green
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "The files have been successfully patched .",
+                    Foreground = Avalonia.Media.Brushes.White
                 });
             }
             catch (Exception ex)
             {
-                // On error, add an error message in red.
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
                 {
-                    Text = "Patch operation failed: " + ex.Message,
+                    Text = "Critical Error: ",
                     Foreground = Avalonia.Media.Brushes.Red
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "" + ex.Message,
+                    Foreground = Avalonia.Media.Brushes.Yellow
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "\n\nPatch operation was unsuccessful.",
+                    Foreground = Avalonia.Media.Brushes.White
                 });
             }
         }
