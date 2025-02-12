@@ -71,7 +71,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="24"
-                Text="Morven Compatch NFR Patcher" />
+                Text="Morven Compatch : NFR Patcher" />
         </Border>
 
         <!--  Console output with enhanced styling using a read-only TextBox that remains black.  -->
@@ -134,6 +134,7 @@
                 <Button
                     Width="75"
                     Background="#a9cea1"
+                    Click="SteamBrowseButton_Click"
                     Content="Browse...">
                     <Button.Styles>
                         <Style Selector="Button:pointerover /template/ ContentPresenter">
@@ -210,6 +211,7 @@
                 <Button
                     Width="75"
                     Background="#a9cea1"
+                    Click="ModBrowseButton_Click"
                     Content="Browse...">
                     <Button.Styles>
                         <Style Selector="Button:pointerover /template/ ContentPresenter">
