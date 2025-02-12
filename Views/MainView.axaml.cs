@@ -312,6 +312,50 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 }
             }
 
+            // The game and mod that needs to be patched (Morven's Mods 1.14 Compatch) location
+            string targetSubfolder = System.IO.Path.Combine(steamFolderPath, "workshop", "content", "1158310", "3001489429");
+
+            // Check if the target subfolder exists.
+            if (!System.IO.Directory.Exists(targetSubfolder))
+            {
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Error: ",
+                    Foreground = Avalonia.Media.Brushes.Red
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "The required folder ",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "'workshop\\content\\1158310\\3001489429' ",
+                    Foreground = Avalonia.Media.Brushes.Cyan
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "does not exist within the ",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "steamapps folder.",
+                    Foreground = Avalonia.Media.Brushes.Cyan
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "\n\n --> Are you sure you have Morven's Mods 1.14 Compatch installed? <--",
+                    Foreground = Avalonia.Media.Brushes.Yellow
+                });
+                return;
+            }
+
             try
             {
                 // Simulate patching logic with an asynchronous delay.
