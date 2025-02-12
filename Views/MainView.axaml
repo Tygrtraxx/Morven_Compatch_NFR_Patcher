@@ -86,6 +86,7 @@
             <!--  Disable scrolling for the textbox and make it read only.  -->
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
                 <TextBox
+                    x:Name="ConsoleOutputTextBox"
                     Padding="20"
                     AcceptsReturn="True"
                     Background="Black"
@@ -288,6 +289,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Background="#a9cea1"
+                Click="PatchButton_Click"
                 Content="Patch"
                 FontSize="25"
                 IsEnabled="{Binding CanPatch}">

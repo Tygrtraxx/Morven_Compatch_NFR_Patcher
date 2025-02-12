@@ -8,6 +8,8 @@
  *=============================================================================================*/
 
 using System;
+using System.IO;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
@@ -80,6 +82,57 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 {
                     vm.ModFolder = folders[0].Path.LocalPath;
                 }
+            }
+        }
+
+        // Event handler for the Patch button click.
+        private async void PatchButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Clear the Console Output box.
+            ConsoleOutputTextBox.Text = string.Empty;
+
+            // Validate that both folder paths are provided.
+            if (string.IsNullOrWhiteSpace(SteamFolderTextBox.Text) || string.IsNullOrWhiteSpace(ModFolderTextBox.Text))
+            {
+                ConsoleOutputTextBox.Text = "Error: Both folders must be specified.";
+                return;
+            }
+
+            // Validate that the Steam folder exists.
+            if (!Directory.Exists(SteamFolderTextBox.Text))
+            {
+                ConsoleOutputTextBox.Text = "Error: The specified Steam folder does not exist.";
+                return;
+            }
+
+            // Validate that the Mod folder exists.
+            if (!Directory.Exists(ModFolderTextBox.Text))
+            {
+                ConsoleOutputTextBox.Text = "Error: The specified Mod folder does not exist.";
+                return;
+            }
+
+            // TODO: Add the ability to check if the user has already patched their game.
+            /*
+            if ()
+            {
+                ConsoleOutputTextBox.Text = "Error: The files have already been patched.";
+                return;
+            }
+            */
+
+            // If both folders are valid, proceed with the patch operation.
+            try
+            {
+                // Simulate patching logic with an asynchronous delay.
+                await Task.Delay(1000);
+
+                ConsoleOutputTextBox.Text = "The files have been patched successfully.";
+            }
+            catch (Exception ex)
+            {
+                // Update the Console Output box with an error message if an exception occurs.
+                ConsoleOutputTextBox.Text = "Patch operation failed: " + ex.Message;
             }
         }
 
