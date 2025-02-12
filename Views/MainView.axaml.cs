@@ -529,7 +529,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
             FileHelper.CopyDirectory(sourceDir, modFolderPath);
 
             // Build the relative path from the Steam folder to the source base folder.
-            string relativeSteamPath = Path.Combine("steamapps", "workshop", "content", "1158310", "3001489429");
+            string relativeSteamPath = Path.Combine("workshop", "content", "1158310", "3001489429");
             string sourceBase = Path.Combine(steamFolderPath, relativeSteamPath);
 
             // Check if the resulting folder doesn't exist.
@@ -569,6 +569,12 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 {
                     Text = ".",
                     Foreground = Avalonia.Media.Brushes.White
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "\n\n DEBUG FILE PATH: \n" + sourceBase,
+                    Foreground = Avalonia.Media.Brushes.Orange
                 });
 
                 return;
