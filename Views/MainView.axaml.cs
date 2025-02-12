@@ -268,6 +268,48 @@ namespace Morven_Compatch_NFR_Patcher.Views
                     // Use the "steamapps" folder instead.
                     steamFolderPath = steamappsPath;
                 }
+
+                // If the folder doesn't exist, show the user an error.
+                else
+                {
+                    ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                    {
+                        Text = "Error: ",
+                        Foreground = Avalonia.Media.Brushes.Red
+                    });
+
+                    ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                    {
+                        Text = "The specified ",
+                        Foreground = Avalonia.Media.Brushes.White
+                    });
+
+                    ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                    {
+                        Text = "Steam folder ",
+                        Foreground = Avalonia.Media.Brushes.Cyan
+                    });
+
+                    ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                    {
+                        Text = "does not contain the ",
+                        Foreground = Avalonia.Media.Brushes.White
+                    });
+
+                    ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                    {
+                        Text = "steamapps folder.",
+                        Foreground = Avalonia.Media.Brushes.Cyan
+                    });
+
+                    ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                    {
+                        Text = "\n\n --> Are you sure this is the right Steam folder? <--",
+                        Foreground = Avalonia.Media.Brushes.Yellow
+                    });
+
+                    return;
+                }
             }
 
             try
