@@ -30,7 +30,7 @@ namespace Morven_Compatch_NFR_Patcher
         }
         public override void OnFrameworkInitializationCompleted()
         {
-            // Remove Avalonia data validation to avoid duplicate validations.
+            // Gets rid of Avalonia data validation to avoid duplicate validations.
             BindingPlugins.DataValidators.RemoveAt(0);
 
             // Check if the application is running in classic desktop mode.

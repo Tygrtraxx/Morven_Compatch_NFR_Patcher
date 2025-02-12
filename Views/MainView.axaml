@@ -139,7 +139,7 @@
                     <Button.Styles>
                         <Style Selector="Button:pointerover /template/ ContentPresenter">
                             <Setter Property="Background" Value="#394f30" />
-                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="BorderThickness" Value="2" />
                             <Setter Property="BorderBrush" Value="DarkRed" />
                         </Style>
                     </Button.Styles>
@@ -216,7 +216,7 @@
                     <Button.Styles>
                         <Style Selector="Button:pointerover /template/ ContentPresenter">
                             <Setter Property="Background" Value="#394f30" />
-                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="BorderThickness" Value="2" />
                             <Setter Property="BorderBrush" Value="DarkRed" />
                         </Style>
                     </Button.Styles>
@@ -287,11 +287,41 @@
                 HorizontalAlignment="Center"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
-                Background="Black"
+                Background="#a9cea1"
                 Content="Patch"
                 FontSize="25"
-                Foreground="LightBlue"
-                IsEnabled="{Binding CanPatch}" />
+                IsEnabled="{Binding CanPatch}">
+
+                <Button.Styles>
+                    <Style x:SetterTargetType="Button" Selector="Button:pointerover">
+                        <Setter Property="Width" Value="160" />
+                        <Setter Property="Height" Value="50" />
+                    </Style>
+
+                    <Style x:SetterTargetType="Button" Selector="Button:pointerover ContentPresenter">
+                        <Setter Property="Background" Value="#394f30" />
+                        <Setter Property="BorderThickness" Value="3" />
+                        <Setter Property="BorderBrush" Value="DarkRed" />
+                    </Style>
+
+                    <Style x:SetterTargetType="Button" Selector="Button:pointerover AccessText">
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+
+                        <!--  Prevents the text from clipping at the bottom.  -->
+                        <Setter Property="Margin" Value="-15" />
+                    </Style>
+
+                </Button.Styles>
+
+                <Button.Transitions>
+                    <Transitions>
+                        <DoubleTransition Property="Width" Duration="0:0:0.1" />
+                        <DoubleTransition Property="Height" Duration="0:0:0.1" />
+                    </Transitions>
+                </Button.Transitions>
+            </Button>
 
             <!--  Version Info.  -->
             <TextBlock

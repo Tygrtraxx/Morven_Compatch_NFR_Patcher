@@ -1,10 +1,10 @@
 <!--
     App.axaml
     
-    Line 8: Sets the default XML namespace to Avalonia UI.
-    Line 9: Provides XAML language constructs (e.g. x:Class, x:Name).
-    Line 10: Links this XAML file to the code-behind class (App) in the specified namespace.
-    Line 11: Specifies the theme variant for the application. "Default" means it follows the system theme; "Dark" or "Light"; can be set explicitly if desired.
+    Line 10: Sets the default XML namespace to Avalonia UI.
+    Line 11: Provides XAML language constructs (e.g. x:Class, x:Name).
+    Line 12: Links this XAML file to the code-behind class (App) in the specified namespace.
+    Line 13: Specifies the theme variant for the application. "Default" means it follows the system theme; "Dark" or "Light"; can be set explicitly if desired.
 -->
 <Application
     x:Class="Morven_Compatch_NFR_Patcher.App"

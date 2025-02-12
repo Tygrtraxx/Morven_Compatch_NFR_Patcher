@@ -1,4 +1,22 @@
-<!--  This file defines the main window of the application and sets up the environment for the UI.  -->
+<!--
+    This file defines the main window of the application and sets up the environment for the UI.
+    
+    Line 21 : Associates this XAML file with the code-behind class 'MainView' in the specified namespace.
+    Line 22 : Sets the default XML namespace for Avalonia UI elements.
+    Line 23 : Provides XAML language constructs (e.g. x:Class, x:Name, etc.).
+    Line 24 : Used for design-time properties and data in Visual Studio.
+    Line 25 : Enables markup compatibility features, such as ignoring design-time attributes at runtime.
+    Line 26 : Maps the 'vm' prefix to the Morven_Compatch_NFR_Patcher.ViewModels namespace, allowing to reference the ViewModel classes.
+    Line 27 : Maps the 'vm' prefix to the CLR namespace that contains the ViewModels.
+    Line 28 : Specifies the title for the window.
+    Line 29 : Specifies the height for the control in the designer.
+    Line 30 : Specifies the width for the control in the designer.
+    Line 31 : Specifies the design-time height for the control in the designer.
+    Line 32 : Specifies the design-time width for the control in the designer.
+    Line 33 : Prevents the window from being resizable by the user.
+    Line 34 : The author's icon which is used for the application window logo.
+    Line 35 : Instructs the XAML parser to ignore all attributes in the 'd' (design-time) namespace at runtime.
+-->
 <Window
     x:Class="Morven_Compatch_NFR_Patcher.Views.MainWindow"
     xmlns="https://github.com/avaloniaui"
@@ -7,7 +25,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:Morven_Compatch_NFR_Patcher.Views"
     xmlns:vm="using:Morven_Compatch_NFR_Patcher.ViewModels"
-    Title="Morven Compatch NFR Patcher"
+    Title="Morven Compatch : NFR Patcher"
     Width="650"
     Height="600"
     d:DesignHeight="600"
