@@ -19,7 +19,7 @@
                 and include subfolders (like "morven_compatch_NFR") for files inside those subdirectories.
                 The "ModFiles" folder itself is not recreated.
             -->
-		    <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<Link>Assets\ModFiles\%(RecursiveDir)%(Filename)%(Extension)</Link>
 	    </Content>
     </ItemGroup>
 

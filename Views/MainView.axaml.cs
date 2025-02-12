@@ -482,7 +482,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
             string lineToAppend = $"path=\"{fullModPath}\"";
 
             // Specify the path to the mod file to update. Adjust the relative path as needed.
-            string modFilePath = Path.Combine(AppContext.BaseDirectory, "morven_patch_NFR.mod");
+            string modFilePath = Path.Combine(AppContext.BaseDirectory, "Assets", "ModFiles", "morven_patch_NFR.mod");
 
             // Ensure the file exists before attempting to append text.
             if (File.Exists(modFilePath))
@@ -518,8 +518,14 @@ namespace Morven_Compatch_NFR_Patcher.Views
 
                 ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
                 {
-                    Text = "\n\n --> (BUG?) You shouldn't be seeing this error. Contact Tygrtraxx and inquire about this error. <--",
+                    Text = "\n\n --> (BUG?) You shouldn't be seeing this error. Contact Tygrtraxx. <--",
                     Foreground = Avalonia.Media.Brushes.Yellow
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "\n\n DEBUG FILE PATH: \n" + modFilePath,
+                    Foreground = Avalonia.Media.Brushes.Orange
                 });
 
                 return;
