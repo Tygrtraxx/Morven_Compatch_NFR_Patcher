@@ -15,6 +15,7 @@ using Avalonia.Interactivity;
 using Avalonia.VisualTree;
 using Avalonia.Platform.Storage;
 using Morven_Compatch_NFR_Patcher.ViewModels;
+using Avalonia.Threading;
 
 namespace Morven_Compatch_NFR_Patcher.Views
 {
@@ -88,53 +89,74 @@ namespace Morven_Compatch_NFR_Patcher.Views
         // Event handler for the Patch button click.
         private async void PatchButton_Click(object sender, RoutedEventArgs e)
         {
-            // Clear the Console Output box.
-            ConsoleOutputTextBox.Text = string.Empty;
+            // Check if the Inlines collection is unexpectedly null; if so, throw an exception to indicate a critical error.
+            if (ConsoleOutputTextBlock.Inlines == null)
+            {
+                throw new InvalidOperationException("Inlines collection is unexpectedly null.");
+            }
+
+            // Clear the console to make way for the next message to show the user.
+            ConsoleOutputTextBlock.Inlines.Clear();
 
             // Validate that both folder paths are provided.
             if (string.IsNullOrWhiteSpace(SteamFolderTextBox.Text) || string.IsNullOrWhiteSpace(ModFolderTextBox.Text))
             {
-                ConsoleOutputTextBox.Text = "Error: Both folders must be specified.";
+                // Add an error message in red.
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Error: Both folders must be specified.",
+                    Foreground = Avalonia.Media.Brushes.Red
+                });
                 return;
             }
 
             // Validate that the Steam folder exists.
             if (!Directory.Exists(SteamFolderTextBox.Text))
             {
-                ConsoleOutputTextBox.Text = "Error: The specified Steam folder does not exist.";
+                // Add an error message in red.
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Error: The specified Steam folder does not exist.",
+                    Foreground = Avalonia.Media.Brushes.Red
+                });
                 return;
             }
 
             // Validate that the Mod folder exists.
             if (!Directory.Exists(ModFolderTextBox.Text))
             {
-                ConsoleOutputTextBox.Text = "Error: The specified Mod folder does not exist.";
+                // Add an error message in red.
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Error: The specified Mod folder does not exist.",
+                    Foreground = Avalonia.Media.Brushes.Red
+                });
                 return;
             }
 
-            // TODO: Add the ability to check if the user has already patched their game.
-            /*
-            if ()
-            {
-                ConsoleOutputTextBox.Text = "Error: The files have already been patched.";
-                return;
-            }
-            */
-
-            // If both folders are valid, proceed with the patch operation.
             try
             {
                 // Simulate patching logic with an asynchronous delay.
                 await Task.Delay(1000);
 
-                ConsoleOutputTextBox.Text = "The files have been patched successfully.";
+                // On success, add a success message in green.
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "The files have been patched successfully.",
+                    Foreground = Avalonia.Media.Brushes.Green
+                });
             }
             catch (Exception ex)
             {
-                // Update the Console Output box with an error message if an exception occurs.
-                ConsoleOutputTextBox.Text = "Patch operation failed: " + ex.Message;
+                // On error, add an error message in red.
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Patch operation failed: " + ex.Message,
+                    Foreground = Avalonia.Media.Brushes.Red
+                });
             }
         }
+
 
         // Retrieves the parent window of this control.
         // It attempts to cast the VisualRoot to a Window and throws an exception if the control is not attached.

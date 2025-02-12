@@ -83,29 +83,19 @@
             BorderThickness="3"
             CornerRadius="4">
 
-            <!--  Disable scrolling for the textbox and make it read only.  -->
+            <!--  Console Output area using a TextBlock for multi-colored text.  -->
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
-                <TextBox
-                    x:Name="ConsoleOutputTextBox"
+                <TextBlock
+                    x:Name="ConsoleOutputTextBlock"
                     Padding="20"
-                    AcceptsReturn="True"
                     Background="Black"
-                    BorderThickness="0"
                     FontFamily="Consolas"
                     Foreground="White"
-                    IsReadOnly="True"
-                    Text="Welcome to the Morven Compatch : NFR Patcher&#x0a;&#x0a;Please locate your mod and Steam folder and choose them. Afterwards, click the Patch button to begin."
                     TextWrapping="Wrap">
-                    <TextBox.Styles>
-
-                        <!--  Override the internal template Border that displays the background,  -->
-                        <!--  so that it always displays black to the user.  -->
-                        <Style Selector="TextBox /template/ Border">
-                            <Setter Property="Background" Value="Black" />
-                        </Style>
-
-                    </TextBox.Styles>
-                </TextBox>
+                    <TextBlock.Inlines>
+                        <Run Text="Welcome to the Morven Compatch : NFR Patcher&#x0a;&#x0a;Please locate your mod and Steam folder and choose them. Afterwards, click the Patch button to begin." />
+                    </TextBlock.Inlines>
+                </TextBlock>
             </ScrollViewer>
         </Border>
 
