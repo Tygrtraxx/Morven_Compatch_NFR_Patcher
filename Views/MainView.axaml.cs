@@ -99,15 +99,6 @@ namespace Morven_Compatch_NFR_Patcher.Views
             // Clear the console to make way for the next message to show the user.
             ConsoleOutputTextBlock.Inlines.Clear();
 
-            // TODO: Add the ability to check if the user has already patched their game.
-            /*
-            if ()
-            {
-                ConsoleOutputTextBox.Text = "Error: The files have already been patched.";
-                return;
-            }
-            */
-
             // Validate that both folder paths are provided
             if (string.IsNullOrWhiteSpace(SteamFolderTextBox.Text) || string.IsNullOrWhiteSpace(ModFolderTextBox.Text) || (!Directory.Exists(SteamFolderTextBox.Text) && !Directory.Exists(ModFolderTextBox.Text)))
             {
@@ -481,7 +472,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
             // Build the line to append.
             string lineToAppend = $"path=\"{fullModPath}\"";
 
-            // Specify the path to the mod file to update. Adjust the relative path as needed.
+            // Specify the path to the mod file to update.
             string modFilePath = Path.Combine(AppContext.BaseDirectory, "Assets", "ModFiles", "morven_patch_NFR.mod");
 
             // Ensure the file exists before attempting to append text.
@@ -531,11 +522,120 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 return;
             }
 
-            // Define the source directory where your mod files are located.
+            // Define the source directory where the mod files are located.
             string sourceDir = Path.Combine(AppContext.BaseDirectory, "Assets", "ModFiles");
 
-            // The modFolderPath should be the target mod folder the user selected.
+            // Copy the newly edited mod file to the mod directory.
             FileHelper.CopyDirectory(sourceDir, modFolderPath);
+
+            // Build the relative path from the Steam folder to the source base folder.
+            string relativeSteamPath = Path.Combine("steamapps", "workshop", "content", "1158310", "3001489429");
+            string sourceBase = Path.Combine(steamFolderPath, relativeSteamPath);
+
+            // Check if the resulting folder doesn't exist.
+            if (!Directory.Exists(sourceBase))
+            {
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Error: ",
+                    Foreground = Avalonia.Media.Brushes.Red
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "The required folder structure ",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "'steamapps\\workshop\\content\\1158310\\3001489429' ",
+                    Foreground = Avalonia.Media.Brushes.Cyan
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "does not exist within your ",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Steam folder",
+                    Foreground = Avalonia.Media.Brushes.Cyan
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = ".",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                return;
+            }
+
+            // Build the destination folder path as "morven_patch_NFR" inside the mod folder.
+            string destinationBase = Path.Combine(modFolderPath, "morven_patch_NFR");
+
+            // Ensure the destination folder exists.
+            Directory.CreateDirectory(destinationBase);
+
+            // List of subfolders to copy.
+            string[] subfolders = { "common", "events", "localization" };
+
+            foreach (string subfolder in subfolders)
+            {
+                // Build the full source subfolder path.
+                string sourceSubfolder = Path.Combine(sourceBase, subfolder);
+
+                // Check if this source subfolder exists.
+                if (!Directory.Exists(sourceSubfolder))
+                {
+                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                    {
+                        Text = "Error: ",
+                        Foreground = Avalonia.Media.Brushes.Red
+                    });
+
+                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                    {
+                        Text = "The required subfolder ",
+                        Foreground = Avalonia.Media.Brushes.White
+                    });
+
+                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                    {
+                        Text = $"'{subfolder}' ",
+                        Foreground = Avalonia.Media.Brushes.Cyan
+                    });
+
+                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                    {
+                        Text = "does not exist in the ",
+                        Foreground = Avalonia.Media.Brushes.White
+                    });
+
+                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                    {
+                        Text = "Morven's Mods 1.14 Compatch folder",
+                        Foreground = Avalonia.Media.Brushes.Cyan
+                    });
+
+                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                    {
+                        Text = ".",
+                        Foreground = Avalonia.Media.Brushes.White
+                    });
+
+                    return;
+                }
+
+                // Build the destination subfolder path inside "morven_patch_NFR".
+                string destinationSubfolder = Path.Combine(destinationBase, subfolder);
+
+                // Copy the entire subfolder recursively.
+                FileHelper.CopyDirectory(sourceSubfolder, destinationSubfolder);
+            }
 
             try
             {
