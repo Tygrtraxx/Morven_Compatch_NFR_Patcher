@@ -471,6 +471,67 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 return;
             }
 
+            // Determine the absolute mod folder path and normalize the path to use forward slashes.
+            string normalizedModFolderPath = modFolderPath.Replace("\\", "/");
+
+            // Append the desired subfolder to the mod folder path.
+            string fullModPath = $"{normalizedModFolderPath}/morven_patch_NFR";
+
+            // Build the line to append.
+            string lineToAppend = $"path=\"{fullModPath}\"";
+
+            // Specify the path to the mod file to update. Adjust the relative path as needed.
+            string modFilePath = Path.Combine(AppContext.BaseDirectory, "morven_patch_NFR.mod");
+
+            // Ensure the file exists before attempting to append text.
+            if (File.Exists(modFilePath))
+            {
+                // Append a newline and the new line to the file.
+                File.AppendAllText(modFilePath, Environment.NewLine + lineToAppend);
+            }
+            else
+            {
+                // Optionally, report an error if the mod file does not exist.
+                ConsoleOutputTextBlock.Inlines!.Clear();
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Error: The mod file 'morven_patch_NFR.mod' was not found.",
+                    Foreground = Avalonia.Media.Brushes.Red
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Error: ",
+                    Foreground = Avalonia.Media.Brushes.Red
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "The ",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "mod file 'morven_patch_NFR.mod' ",
+                    Foreground = Avalonia.Media.Brushes.Cyan
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "was not found.",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "\n\n --> (BUG?) You shouldn't be seeing this error. Contact Tygrtraxx and inquire about this error. <--",
+                    Foreground = Avalonia.Media.Brushes.Yellow
+                });
+
+                return;
+            }
+
             try
             {
                 // Simulate patching logic with an asynchronous delay.
