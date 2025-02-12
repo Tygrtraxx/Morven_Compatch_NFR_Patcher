@@ -641,6 +641,24 @@ namespace Morven_Compatch_NFR_Patcher.Views
 
                 // Copy the entire subfolder recursively.
                 FileHelper.CopyDirectory(sourceSubfolder, destinationSubfolder);
+
+                // Define the base mod folder path (i.e. the "morven_patch_NFR" folder inside the mod folder).
+                string modBasePath = Path.Combine(modFolderPath, "morven_patch_NFR");
+
+                // Build the full path for each file to delete (Patch).
+                string fileToDelete1 = Path.Combine(modBasePath, "events", "religion_events", "heresy_events.txt");
+                string fileToDelete2 = Path.Combine(modBasePath, "common", "on_action", "religion_on_actions.txt");
+
+                // Check if the file exists and delete it if it does.
+                if (File.Exists(fileToDelete1))
+                {
+                    File.Delete(fileToDelete1);
+                }
+
+                if (File.Exists(fileToDelete2))
+                {
+                    File.Delete(fileToDelete2);
+                }
             }
 
             try
@@ -656,7 +674,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
 
                 ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
                 {
-                    Text = "The files have been successfully patched .",
+                    Text = "The files have been successfully patched.",
                     Foreground = Avalonia.Media.Brushes.White
                 });
             }
