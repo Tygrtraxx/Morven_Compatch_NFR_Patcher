@@ -107,6 +107,15 @@ namespace Morven_Compatch_NFR_Patcher.Views
             }
             */
 
+            // TODO: Add the ability to check if the user does not have the proper mod installed to patch.
+            /*
+            if ()
+            {
+                ConsoleOutputTextBox.Text = "Error: The files have already been patched.";
+                return;
+            }
+            */
+
             // Validate that both folder paths are provided
             if (string.IsNullOrWhiteSpace(SteamFolderTextBox.Text) || string.IsNullOrWhiteSpace(ModFolderTextBox.Text) || (!Directory.Exists(SteamFolderTextBox.Text) && !Directory.Exists(ModFolderTextBox.Text)))
             {
@@ -179,6 +188,62 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
                 {
                     Text = "does not exist.",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                return;
+            }
+
+            // Check if the selected folder's name is "Steam" or "steamapps".
+            string steamFolderName = Path.GetFileName(SteamFolderTextBox.Text.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+            if (!string.Equals(steamFolderName, "Steam", StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(steamFolderName, "steamapps", StringComparison.OrdinalIgnoreCase))
+            {
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Error: ",
+                    Foreground = Avalonia.Media.Brushes.Red
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "The selected ",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Steam folder ",
+                    Foreground = Avalonia.Media.Brushes.Cyan
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "must be named ",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "'Steam' ",
+                    Foreground = Avalonia.Media.Brushes.Yellow
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "or ",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "'steamapps'",
+                    Foreground = Avalonia.Media.Brushes.Yellow
+                });
+
+                ConsoleOutputTextBlock.Inlines!.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = ".",
                     Foreground = Avalonia.Media.Brushes.White
                 });
 

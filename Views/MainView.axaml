@@ -93,7 +93,10 @@
                     Foreground="White"
                     TextWrapping="Wrap">
                     <TextBlock.Inlines>
-                        <Run Text="Welcome to the Morven Compatch : NFR Patcher&#x0a;&#x0a;Please locate your mod and Steam folder and choose them. Afterwards, click the Patch button to begin." />
+                        <Run Text="Welcome to the Morven Compatch : NFR Patcher" />
+                        <LineBreak />
+                        <LineBreak />
+                        <Run Text="Please locate the appropriate folders and then click the Patch button." />
                     </TextBlock.Inlines>
                 </TextBlock>
             </ScrollViewer>
