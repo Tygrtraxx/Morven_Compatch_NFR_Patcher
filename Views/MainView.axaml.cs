@@ -792,6 +792,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
 
             try
             {
+                // Update the mod files with the correct game version
                 ModFileUpdater.UpdateModFiles(gameVersion);
 
                 // Simulate patching logic with an asynchronous delay.
