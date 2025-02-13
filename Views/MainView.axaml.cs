@@ -17,6 +17,7 @@ using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using Morven_Compatch_NFR_Patcher.ViewModels;
 using Morven_Compatch_NFR_Patcher.Helpers;
+using System.Text.RegularExpressions;
 
 namespace Morven_Compatch_NFR_Patcher.Views
 {
@@ -580,6 +581,134 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 return;
             }
 
+            // Specify the file name "descriptor.mod" in that directory.
+            string descriptorFilePath = Path.Combine(sourceBase, "descriptor.mod");
+
+            // Check if the file exists.
+            if (!File.Exists(descriptorFilePath))
+            {
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Error: ",
+                    Foreground = Avalonia.Media.Brushes.Red
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "'descriptor.mod' ",
+                    Foreground = Avalonia.Media.Brushes.Cyan
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "not found at ",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = $"{descriptorFilePath}",
+                    Foreground = Avalonia.Media.Brushes.Cyan
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = ".",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                return;
+            }
+
+            // Read all lines from the file (We are looking for the version in the file)
+            string[] lines = File.ReadAllLines(descriptorFilePath);
+
+            // Check if there are at least 6 lines in the file.
+            if (lines.Length < 6)
+            {
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Error: ",
+                    Foreground = Avalonia.Media.Brushes.Red
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "'descriptor.mod' ",
+                    Foreground = Avalonia.Media.Brushes.Cyan
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "is missing its version number on ",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "line 6",
+                    Foreground = Avalonia.Media.Brushes.Yellow
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = ".",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                return;
+            }
+
+            // The 6th line is at index 5.
+            string sixthLine = lines[5];
+
+            // Use a regular expression to extract the text between the first pair of quotation marks.
+            // The regex pattern \"([^\"]+)\" captures the text between quotes.
+            Match match = Regex.Match(sixthLine, "\"([^\"]+)\"");
+            if (!match.Success)
+            {
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Error: ",
+                    Foreground = Avalonia.Media.Brushes.Red
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "Game version not found in the ",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "6th line ",
+                    Foreground = Avalonia.Media.Brushes.Yellow
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "of the ",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = "'descriptor.mod'",
+                    Foreground = Avalonia.Media.Brushes.Cyan
+                });
+
+                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
+                {
+                    Text = ".",
+                    Foreground = Avalonia.Media.Brushes.White
+                });
+
+                return;
+            }
+
+            // Save the extracted value as the game_version variable.
+            string gameVersion = "supported_version=\"" + match.Groups[1].Value + "\"";
+
             // Build the destination folder path as "morven_patch_NFR" inside the mod folder.
             string destinationBase = Path.Combine(modFolderPath, "morven_patch_NFR");
 
@@ -663,6 +792,9 @@ namespace Morven_Compatch_NFR_Patcher.Views
 
             try
             {
+                // Update the mod files with the correct game version
+                ModFileUpdater.UpdateModFiles(gameVersion);
+
                 // Simulate patching logic with an asynchronous delay.
                 await Task.Delay(1000);
 
