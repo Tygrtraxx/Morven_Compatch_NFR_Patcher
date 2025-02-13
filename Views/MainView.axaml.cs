@@ -707,13 +707,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
             }
 
             // Save the extracted value as the game_version variable.
-            string game_version = match.Groups[1].Value;
-
-            // Output the extracted game version (for testing purposes).
-            Console.WriteLine("Extracted game version: " + game_version);
-
-
-
+            string gameVersion = "supported_version=\"" + match.Groups[1].Value + "\"";
 
             // Build the destination folder path as "morven_patch_NFR" inside the mod folder.
             string destinationBase = Path.Combine(modFolderPath, "morven_patch_NFR");
@@ -798,6 +792,8 @@ namespace Morven_Compatch_NFR_Patcher.Views
 
             try
             {
+                ModFileUpdater.UpdateModFiles(gameVersion);
+
                 // Simulate patching logic with an asynchronous delay.
                 await Task.Delay(1000);
 
