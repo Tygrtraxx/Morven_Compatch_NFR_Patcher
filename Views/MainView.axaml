@@ -324,7 +324,7 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 FontSize="13"
-                Text="v1.0.0 by Tygrtraxx" />
+                Text="{Binding AppVersion, StringFormat='v{0} by Tygrtraxx'}" />
         </Grid>
     </Grid>
 </UserControl>

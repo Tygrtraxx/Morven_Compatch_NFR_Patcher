@@ -587,7 +587,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
             Directory.CreateDirectory(destinationBase);
 
             // List of subfolders to copy.
-            string[] subfolders = { "common", "events", "localization" };
+            string[] subfolders = ["common", "events", "localization"];
 
             foreach (string subfolder in subfolders)
             {

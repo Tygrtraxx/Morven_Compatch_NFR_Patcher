@@ -1,0 +1,33 @@
+﻿mode: ContinuousDeployment
+branches:
+  master:
+    # Matches branches named "main" or "master".
+    regex: ^(main|master)$
+    tag: ''
+    increment: Minor # Increment the minor version on each commit on master.
+    prevent-increment-of-merged-branch-version: true
+  dev:
+    # Matches branches named "develop" or "dev".
+    regex: ^(develop|dev)$
+    tag: 'alpha'
+    increment: Patch
+    source-branches:
+      - master
+      - hotfix
+      - feature
+  feature:
+    # Matches feature branches that start with "feature-" or "feature/".
+    regex: ^feature[/-]
+    tag: 'alpha'
+    increment: Patch
+    source-branches:
+      - dev
+  hotfix:
+   # Matches hotfix branches that start with "hotfix-" or "hotfix/".
+    regex: ^hotfix(es)?[/-]
+    tag: 'beta'
+    increment: Patch
+    source-branches:
+      - master
+ignore:
+  sha: []

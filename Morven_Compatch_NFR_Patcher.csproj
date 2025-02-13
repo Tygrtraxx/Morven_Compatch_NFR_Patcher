@@ -4,6 +4,7 @@
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <OutputType>Library</OutputType>
+	<Version>$(GitVersion_SemVer)</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,13 +24,22 @@
 	    </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="GitVersion.yml" />
+    </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="$(AvaloniaVersion)" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+	<PackageReference Include="GitVersion.MSBuild" Version="5.8.1" />
 
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="GitVersion.yml" />
   </ItemGroup>
 </Project>

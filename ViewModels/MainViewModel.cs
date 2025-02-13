@@ -3,8 +3,9 @@
 *
 * Description: 
 *   This ViewModel serves as the primary data context for the main UI. It holds the 
-*   folder paths for the Steam folder and mod folder, and provides a computed property 
-*   'CanPatch' which indicates whether both folders have been specified.
+*   folder paths for the Steam folder and mod folder, and provides computed properties:
+*   - 'CanPatch' indicates whether both folders have been specified.
+*   - 'AppVersion' retrieves the application's version from the executing assembly.
 *
 *   The class inherits from ViewModelBase, which in turn inherits from ObservableObject.
 *   ObservableObject implements INotifyPropertyChanged so that the UI automatically updates 
@@ -12,6 +13,7 @@
 *   raises change notifications automatically.
 *=============================================================================================*/
 
+using System.Reflection;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Morven_Compatch_NFR_Patcher.ViewModels
@@ -29,6 +31,9 @@ namespace Morven_Compatch_NFR_Patcher.ViewModels
         // CanPatch returns true only if both SteamFolder and ModFolder are not null or whitespace.
         public bool CanPatch => !string.IsNullOrWhiteSpace(SteamFolder) && !string.IsNullOrWhiteSpace(ModFolder);
 
+        // AppVersion retrieves the application's version from the executing assembly.
+        public static string AppVersion => Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "N/A";
+
         // This method is automatically called when the SteamFolder property changes. It notifies the UI that the CanPatch property may have changed.
         partial void OnSteamFolderChanged(string value)
         {
@@ -42,4 +47,3 @@ namespace Morven_Compatch_NFR_Patcher.ViewModels
         }
     }
 }
-
