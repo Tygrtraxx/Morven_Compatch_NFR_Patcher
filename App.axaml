@@ -12,7 +12,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     RequestedThemeVariant="Default">
 
-    <!--  Application.Styles: Define the visual styling for the application.  -->
+    <!--  Define application-wide resources  -->
+    <Application.Resources>
+        <!--  Custom Blue Brush  -->
+        <SolidColorBrush x:Key="CustomBlue" Color="#7c86f4" />
+    </Application.Resources>
+
+    <!--  Application Styles  -->
     <Application.Styles>
 
         <!--  FluentTheme: Applies the Fluent UI theme to the application.  -->
