@@ -17,7 +17,8 @@ using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using Morven_Compatch_NFR_Patcher.ViewModels;
 using Morven_Compatch_NFR_Patcher.Helpers;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Morven_Compatch_NFR_Patcher.Views
 {
@@ -470,17 +471,31 @@ namespace Morven_Compatch_NFR_Patcher.Views
             // Append the desired subfolder to the mod folder path.
             string fullModPath = $"{normalizedModFolderPath}/morven_patch_NFR";
 
-            // Build the line to append.
-            string lineToAppend = $"path=\"{fullModPath}\"";
+            // Build the line that needs to be placed at the 7th line
+            string lineToInsert = $"path=\"{fullModPath}\"";
 
             // Specify the path to the mod file to update.
             string modFilePath = Path.Combine(AppContext.BaseDirectory, "Assets", "ModFiles", "morven_patch_NFR.mod");
 
-            // Ensure the file exists before attempting to append text.
+            // Ensure the file exists before attempting to modify it
             if (File.Exists(modFilePath))
             {
-                // Append a newline and the new line to the file.
-                File.AppendAllText(modFilePath, Environment.NewLine + lineToAppend);
+                // Read all lines from the file
+                List<string> lines = File.ReadAllLines(modFilePath).ToList();
+
+                // If the file already has at least 7 lines, replace the 7th line with the local mod's path location
+                if (lines.Count >= 7)
+                {
+                    lines[6] = lineToInsert;
+                }
+                else
+                {
+                    // If the file has fewer than 7 lines, append the local mod's path location to the file
+                    lines.Add(lineToInsert);
+                }
+
+                // Write the modified content back to the file
+                File.WriteAllLines(modFilePath, lines);
             }
             else
             {
