@@ -95,13 +95,19 @@ namespace Morven_Compatch_NFR_Patcher.Views
         private async void PatchButton_Click(object sender, RoutedEventArgs e)
         {
             // Check if the Inlines collection is unexpectedly null; if so, throw an exception to indicate a critical error.
-            if (ConsoleOutputTextBlock.Inlines == null)
+            if (ConsoleOutputTextBlock.Inlines == null || InstructionsTextBlock.Inlines == null ||InstructionsLinesTextBlock.Inlines == null)
             {
-                throw new InvalidOperationException("Inlines collection is unexpectedly null.");
+                throw new InvalidOperationException("One of the inlines collections are unexpectedly null.");
             }
 
-            // Clear the console to make way for the next message to show the user.
+            // Clear the instructions (To make room for the upcoming messages in the ConsoleOutputTextBlock).
             ConsoleOutputTextBlock.Inlines.Clear();
+
+            // Clear the instructions lines (To make room for the upcoming messages in the ConsoleOutputTextBlock).
+            InstructionsTextBlock.Inlines.Clear();
+
+            // Clear the console to make way for the next message to show the user.
+            InstructionsLinesTextBlock.Inlines.Clear();
 
             // Validate that both folder paths are provided
             if (string.IsNullOrWhiteSpace(SteamFolderTextBox.Text) || string.IsNullOrWhiteSpace(ModFolderTextBox.Text) || (!Directory.Exists(SteamFolderTextBox.Text) && !Directory.Exists(ModFolderTextBox.Text)))
