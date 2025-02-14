@@ -32,7 +32,38 @@ namespace Morven_Compatch_NFR_Patcher.ViewModels
         public bool CanPatch => !string.IsNullOrWhiteSpace(SteamFolder) && !string.IsNullOrWhiteSpace(ModFolder);
 
         // AppVersion retrieves the application's version from the executing assembly.
-        public static string AppVersion => Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "N/A";
+        public static string AppVersion
+        {
+            get
+            {
+                // Retrieve the informational version (set by GitVersion)
+                var infoVersion = Assembly.GetExecutingAssembly()
+                    .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
+                    .InformationalVersion;
+
+                if (string.IsNullOrEmpty(infoVersion))
+                    return "N/A";
+
+                // Look for a '+' sign (which often indicates build metadata in semver).
+                int plusIndex = infoVersion.IndexOf('+');
+                if (plusIndex != -1 && plusIndex < infoVersion.Length - 1)
+                {
+                    // Extract the part after '+'
+                    var metadata = infoVersion.Substring(plusIndex + 1);
+
+                    // Limit the metadata to 7 characters (adjust as needed).
+                    if (metadata.Length > 7)
+                    {
+                        metadata = metadata.Substring(0, 7);
+                    }
+
+                    // Reconstruct: everything up to '+' + shortened metadata
+                    infoVersion = infoVersion.Substring(0, plusIndex + 1) + metadata;
+                }
+
+                return infoVersion;
+            }
+        }
 
         // This method is automatically called when the SteamFolder property changes. It notifies the UI that the CanPatch property may have changed.
         partial void OnSteamFolderChanged(string value)
