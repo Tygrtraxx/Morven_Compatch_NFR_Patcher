@@ -3,14 +3,17 @@
 *
 *   Description: This static class provides helper methods for appending colored text to a TextBlock.
 *      It simplifies the process of adding text with varying colors to a TextBlock's inlines.
-*      The class includes a method to append generic colored text and a method (ShowStatusText)
-*      to display a status message. The ShowStatusText method accepts a message and a Boolean flag
-*      indicating whether the message is an error. Based on the flag, it displays either an "OK"
-*      or an "ERROR" status (using different colored text) followed by the custom message. The 
-*      custom message is parsed to highlight specific keywords ("mod" and "steam") in varying colors. 
-*      After displaying the status, the method pauses for 300 milliseconds.
+*      The class includes methods for:
+*         - Appending generic colored text (AppendColoredText).
+*         - Displaying a status message (ShowStatusText) based on a status title integer.
+*           The status title determines which status banner to display (e.g., "OK", "ERROR", "CRITICAL ERROR",
+*           "TIP", "PATCH", or "DEBUG").
+*         - Checking the combined length of the status text and custom message, and splitting the message
+*           into two parts with a line break if the total length exceeds 75 characters (CheckMessageCharacterLimit).
+*         - Parsing the custom message to highlight specific keywords (via AppendColoredTextWithKeywords)
+*           in designated colors.
+*      After displaying the status and processing the message, the method pauses for 300 milliseconds.
 *=============================================================================================*/
-
 
 using Avalonia.Collections;
 using Avalonia.Controls;
