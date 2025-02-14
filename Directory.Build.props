@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <!-- Set the repository path (the folder containing the .git folder) -->
+    <GitVersion_RepositoryPath>C:\Users\tyler\Desktop\Workspace\GitHub\Morven_Compatch_NFR_Patcher\Morven_Compatch_NFR_Patcher</GitVersion_RepositoryPath>
+  </PropertyGroup>
+</Project>

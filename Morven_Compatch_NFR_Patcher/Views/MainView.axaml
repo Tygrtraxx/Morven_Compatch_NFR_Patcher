@@ -149,12 +149,9 @@
                             <Run
                                 FontWeight="Bold"
                                 Foreground="Red"
-                                Text="DISABLE"
+                                Text="disable or uninstall"
                                 TextDecorations="Underline" />
-                            <Run
-                                FontWeight="Bold"
-                                Foreground="Yellow"
-                                Text="(NOT UNINSTALL)" />
+
                             <Run Foreground="DarkRed" Text="&quot;Morven's Mods Compatch&quot;" />
                             <Run Foreground="{StaticResource CustomBlue}" Text="mod in" />
                             <Run Foreground="Orange" Text="Crusader Kings III" />
