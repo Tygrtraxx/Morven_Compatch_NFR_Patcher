@@ -88,7 +88,8 @@
 
                     <!--  Centered Instructions Text at beginning of the program with a green border  -->
                     <Border
-                        Margin="0,30,0,10"
+                        x:Name="InstructionsBorder"
+                        Margin="0,20,0,0"
                         Padding="15"
                         HorizontalAlignment="Center"
                         BorderBrush="Green"
@@ -178,9 +179,9 @@
                     <!--  Main Console Output TextBlock  -->
                     <TextBlock
                         x:Name="ConsoleOutputTextBlock"
-                        HorizontalAlignment="Center"
+                        Margin="15,10,0,0"
+                        HorizontalAlignment="Left"
                         FontFamily="Consolas"
-                        FontWeight="Bold"
                         Foreground="White" />
 
                 </StackPanel>
