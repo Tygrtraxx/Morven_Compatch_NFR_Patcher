@@ -10,6 +10,9 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
@@ -17,8 +20,7 @@ using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using Morven_Compatch_NFR_Patcher.ViewModels;
 using Morven_Compatch_NFR_Patcher.Helpers;
-using System.Collections.Generic;
-using System.Linq;
+
 
 namespace Morven_Compatch_NFR_Patcher.Views
 {
@@ -481,22 +483,23 @@ namespace Morven_Compatch_NFR_Patcher.Views
             if (File.Exists(modFilePath))
             {
                 // Read all lines from the file
-                List<string> lines = File.ReadAllLines(modFilePath).ToList();
+                var fileLines = new List<string>(File.ReadAllLines(modFilePath));
 
                 // If the file already has at least 7 lines, replace the 7th line with the local mod's path location
-                if (lines.Count >= 7)
+                if (fileLines.Count >= 7)
                 {
-                    lines[6] = lineToInsert;
+                    fileLines[6] = lineToInsert;
                 }
                 else
                 {
                     // If the file has fewer than 7 lines, append the local mod's path location to the file
-                    lines.Add(lineToInsert);
+                    fileLines.Add(lineToInsert);
                 }
 
                 // Write the modified content back to the file
-                File.WriteAllLines(modFilePath, lines);
+                File.WriteAllLines(modFilePath, fileLines);
             }
+
             else
             {
                 ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
