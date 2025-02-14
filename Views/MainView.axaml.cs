@@ -10,6 +10,9 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
@@ -17,8 +20,9 @@ using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using Morven_Compatch_NFR_Patcher.ViewModels;
 using Morven_Compatch_NFR_Patcher.Helpers;
-using System.Collections.Generic;
-using System.Linq;
+using Avalonia.Media;
+using Avalonia.Controls.Converters;
+
 
 namespace Morven_Compatch_NFR_Patcher.Views
 {
@@ -35,7 +39,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
         private async void SteamQuestionMark_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new InfoDialog();
-            dialog.ViewModel.Message = "This is the Steam folder explanation text.";
+            dialog.ViewModel.Message = "Open Steam’s Settings, navigate to \n Downloads -> Steam Library Folder \n and check the installation path.";
             await dialog.ShowDialog(GetParentWindow());
         }
 
@@ -44,7 +48,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
         private async void ModQuestionMark_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new InfoDialog();
-            dialog.ViewModel.Message = "This is the Mod folder explanation text.";
+            dialog.ViewModel.Message = "Typically the mod folder is in your user’s Documents or AppData folder.";
             await dialog.ShowDialog(GetParentWindow());
         }
 
@@ -93,28 +97,35 @@ namespace Morven_Compatch_NFR_Patcher.Views
         private async void PatchButton_Click(object sender, RoutedEventArgs e)
         {
             // Check if the Inlines collection is unexpectedly null; if so, throw an exception to indicate a critical error.
-            if (ConsoleOutputTextBlock.Inlines == null)
+            if (ConsoleOutputTextBlock.Inlines == null || InstructionsTextBlock.Inlines == null ||InstructionsLinesTextBlock.Inlines == null)
             {
-                throw new InvalidOperationException("Inlines collection is unexpectedly null.");
+                throw new InvalidOperationException("One of the inlines collections are unexpectedly null.");
             }
 
-            // Clear the console to make way for the next message to show the user.
+            // Clear the instructions (To make room for the upcoming messages in the ConsoleOutputTextBlock).
             ConsoleOutputTextBlock.Inlines.Clear();
 
-            // Validate that both folder paths are provided
+            if (InstructionsBorder.Parent is Panel parentPanel)
+            {
+                parentPanel.Children.Remove(InstructionsBorder);
+            }
+
+            // Remove the InstructionsLinesTextBlock if its parent is a Panel
+            if (InstructionsLinesTextBlock.Parent is Panel parentPanel2)
+            {
+                parentPanel2.Children.Remove(InstructionsLinesTextBlock);
+            }
+
+            // Clear the instructions lines (To make room for the upcoming messages in the ConsoleOutputTextBlock).
+            //InstructionsTextBlock.Inlines.Clear();
+
+            // Clear the console to make way for the next message to show the user.
+            //InstructionsLinesTextBlock.Inlines.Clear();
+
+            // Validate that both folder paths are provided.
             if (string.IsNullOrWhiteSpace(SteamFolderTextBox.Text) || string.IsNullOrWhiteSpace(ModFolderTextBox.Text) || (!Directory.Exists(SteamFolderTextBox.Text) && !Directory.Exists(ModFolderTextBox.Text)))
             {
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Error: ",
-                    Foreground = Avalonia.Media.Brushes.Red
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Both folders are invalid or must be specified.",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Both folders are invalid or must be specified.", 1);
 
                 return;
             }
@@ -122,29 +133,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
             // Validate that the Steam folder exists.
             if (!Directory.Exists(SteamFolderTextBox.Text))
             {
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Error: ",
-                    Foreground = Avalonia.Media.Brushes.Red
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "The specified ",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Steam folder ",
-                    Foreground = Avalonia.Media.Brushes.Cyan
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "does not exist.",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The specified Steam folder does not exist.", 1);
 
                 return;
             }
@@ -152,32 +141,13 @@ namespace Morven_Compatch_NFR_Patcher.Views
             // Validate that the Mod folder exists.
             if (!Directory.Exists(ModFolderTextBox.Text))
             {
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Error: ",
-                    Foreground = Avalonia.Media.Brushes.Red
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "The specified ",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Mod folder ",
-                    Foreground = Avalonia.Media.Brushes.Cyan
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "does not exist.",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The specified mod folder does not exist.", 1);
 
                 return;
             }
+
+            // Output to the console that both files are valid.
+            await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Both file paths are valid.", 0);
 
             // Check if the selected folder's name is "Steam" or "steamapps".
 
@@ -190,59 +160,15 @@ namespace Morven_Compatch_NFR_Patcher.Views
             // Extract the folder name.
             string steamFolderName = Path.GetFileName(trimmedSteamFolderPath);
 
-            if (!string.Equals(steamFolderName, "Steam", StringComparison.OrdinalIgnoreCase) &&
-                !string.Equals(steamFolderName, "steamapps", StringComparison.OrdinalIgnoreCase))
+            if (!string.Equals(steamFolderName, "Steam", StringComparison.OrdinalIgnoreCase) && !string.Equals(steamFolderName, "steamapps", StringComparison.OrdinalIgnoreCase))
             {
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Error: ",
-                    Foreground = Avalonia.Media.Brushes.Red
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "The selected ",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Steam folder ",
-                    Foreground = Avalonia.Media.Brushes.Cyan
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "must be named ",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "'Steam' ",
-                    Foreground = Avalonia.Media.Brushes.Yellow
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "or ",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "'steamapps'",
-                    Foreground = Avalonia.Media.Brushes.Yellow
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = ".",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The selected Steam folder must be named \"Steam\" or \"steamapps\".", 1);
 
                 return;
             }
+
+            // Output to the console that the file is named correctly.
+            await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The folder is named Steam or steamapps.", 0);
 
             // If the entered folder is "Steam", check if a "steamapps" subfolder exists.
             if (string.Equals(steamFolderName, "Steam", StringComparison.OrdinalIgnoreCase))
@@ -257,90 +183,30 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 // If the folder doesn't exist, show the user an error.
                 else
                 {
-                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                    {
-                        Text = "Error: ",
-                        Foreground = Avalonia.Media.Brushes.Red
-                    });
-
-                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                    {
-                        Text = "The specified ",
-                        Foreground = Avalonia.Media.Brushes.White
-                    });
-
-                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                    {
-                        Text = "Steam folder ",
-                        Foreground = Avalonia.Media.Brushes.Cyan
-                    });
-
-                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                    {
-                        Text = "does not contain the ",
-                        Foreground = Avalonia.Media.Brushes.White
-                    });
-
-                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                    {
-                        Text = "steamapps folder.",
-                        Foreground = Avalonia.Media.Brushes.Cyan
-                    });
-
-                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                    {
-                        Text = "\n\n --> Are you sure this is the right Steam folder? <--",
-                        Foreground = Avalonia.Media.Brushes.Yellow
-                    });
+                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The selected Steam folder does not contain the \"steamapps\" folder.", 1);
+                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "--> Are you sure this is the right Steam folder? <--", 2);
 
                     return;
                 }
             }
 
-            // The game and mod that needs to be patched (Morven's Mods 1.14 Compatch) location
+            // Output to the console that Steam has a valid steamapps folder
+            await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The Steam folder has a valid \"steamapps\" folder in it.", 0);
+
+            // The game and mod that needs to be patched (Morven's Mods Compatch) location
             string targetSubfolder = System.IO.Path.Combine(steamFolderPath, "workshop", "content", "1158310", "3001489429");
 
             // Check if the target subfolder exists.
             if (!System.IO.Directory.Exists(targetSubfolder))
             {
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Error: ",
-                    Foreground = Avalonia.Media.Brushes.Red
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "The required folder ",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "'workshop\\content\\1158310\\3001489429' ",
-                    Foreground = Avalonia.Media.Brushes.Cyan
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "does not exist within the ",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "steamapps folder.",
-                    Foreground = Avalonia.Media.Brushes.Cyan
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "\n\n --> Are you sure you have Morven's Mods 1.14 Compatch installed? <--",
-                    Foreground = Avalonia.Media.Brushes.Yellow
-                });
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The required folder \"workshop\\content\\1158310\\3001489429\" does not exist within the steamapps folder.", 1);
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "--> Are you sure you have Morven's Mods Compatch installed? <--", 2);
 
                 return;
             }
+
+            // Output to the console that the mod has been found in steam.
+            await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The required mod has been found in the Steam folder.", 0);
 
             // Get the mod folder path entered by the user and trim any trailing separators to ensure the folder name is extracted correctly.
             string modFolderPath = ModFolderTextBox.Text.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
@@ -351,119 +217,37 @@ namespace Morven_Compatch_NFR_Patcher.Views
             // Check that the selected folder is actually named "mod".
             if (!string.Equals(modDir.Name, "mod", StringComparison.OrdinalIgnoreCase))
             {
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Error: ",
-                    Foreground = Avalonia.Media.Brushes.Red
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "The selected folder must be named ",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "'mod'",
-                    Foreground = Avalonia.Media.Brushes.Cyan
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = ".",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The selected folder must be named \"mod\".", 1);
 
                 return;
             }
+
+            // Output to the console that the mod folder is named correctly.
+            await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The mod folder is named correctly.", 0);
 
             // Check that the parent folder exists and is named "Crusader Kings III".
             DirectoryInfo? parentDir = modDir.Parent;
             if (parentDir == null || !string.Equals(parentDir.Name, "Crusader Kings III", StringComparison.OrdinalIgnoreCase))
             {
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Error: ",
-                    Foreground = Avalonia.Media.Brushes.Red
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "The ",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "mod folder ",
-                    Foreground = Avalonia.Media.Brushes.Cyan
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "must be within the ",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "'Crusader Kings III' folder",
-                    Foreground = Avalonia.Media.Brushes.Cyan
-                });
-
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = ".",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The selected mod folder must be within the \"Crusader Kings III\" folder.", 1);
 
                 return;
             }
+
+            // Output to the console that the mod folder has a valid Crusader Kings III folder.
+            await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The mod folder has a Crusader Kings III folder.", 0);
 
             // Check that the grandparent folder exists and is named "Paradox Interactive".
             DirectoryInfo? grandParentDir = parentDir.Parent;
             if (grandParentDir == null || !string.Equals(grandParentDir.Name, "Paradox Interactive", StringComparison.OrdinalIgnoreCase))
             {
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Error: ",
-                    Foreground = Avalonia.Media.Brushes.Red
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "The ",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "mod folder ",
-                    Foreground = Avalonia.Media.Brushes.Cyan
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "must be within the ",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "'Paradox Interactive\\Crusader Kings III\\' folder",
-                    Foreground = Avalonia.Media.Brushes.Cyan
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = ".",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The selected mod folder must be within the \"Paradox Interactive\\Crusader Kings III\\\" folder.", 1);
 
                 return;
             }
+
+            // Output to the console that the mod folder has a valid Crusader Kings III folder, within a Paradox Interactive folder.
+            await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The Crusader Kings III folder is located within a folder called Paradox Interactive.", 0);
 
             // Determine the absolute mod folder path and normalize the path to use forward slashes.
             string normalizedModFolderPath = modFolderPath.Replace("\\", "/");
@@ -477,63 +261,39 @@ namespace Morven_Compatch_NFR_Patcher.Views
             // Specify the path to the mod file to update.
             string modFilePath = Path.Combine(AppContext.BaseDirectory, "Assets", "ModFiles", "morven_patch_NFR.mod");
 
-            // Ensure the file exists before attempting to modify it
+            // Ensure the file exists before attempting to modify it.
             if (File.Exists(modFilePath))
             {
                 // Read all lines from the file
-                List<string> lines = File.ReadAllLines(modFilePath).ToList();
+                var fileLines = new List<string>(File.ReadAllLines(modFilePath));
 
-                // If the file already has at least 7 lines, replace the 7th line with the local mod's path location
-                if (lines.Count >= 7)
+                // If the file already has at least 7 lines, replace the 7th line with the local mod's path location.
+                if (fileLines.Count >= 7)
                 {
-                    lines[6] = lineToInsert;
+                    fileLines[6] = lineToInsert;
+
+                    // Output to the console that the program is changing the absolute path to the new mod.
+                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Modifying the absolute path, for the upcoming patched mod.", 3);
                 }
                 else
                 {
-                    // If the file has fewer than 7 lines, append the local mod's path location to the file
-                    lines.Add(lineToInsert);
+                    // If the file has fewer than 7 lines, append the local mod's path location to the file.
+                    fileLines.Add(lineToInsert);
+
+                    // Output to the console that the program is changing the absolute path to the new mod.
+                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Adding a new absolute path, for the upcoming patched mod.", 3);
                 }
 
                 // Write the modified content back to the file
-                File.WriteAllLines(modFilePath, lines);
+                File.WriteAllLines(modFilePath, fileLines);
             }
+
             else
             {
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Error: ",
-                    Foreground = Avalonia.Media.Brushes.Red
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "The ",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "mod file 'morven_patch_NFR.mod' ",
-                    Foreground = Avalonia.Media.Brushes.Cyan
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "was not found.",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "\n\n --> (BUG?) You shouldn't be seeing this error. Contact Tygrtraxx. <--",
-                    Foreground = Avalonia.Media.Brushes.Yellow
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "\n\n DEBUG FILE PATH: \n" + modFilePath,
-                    Foreground = Avalonia.Media.Brushes.Orange
-                });
+                // Tell the user something went wrong and the program couldn't find an important file that should be bundled with it.
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The mod file \"morven_patch_NFR.mod\" was not found.", 1);
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "--> (BUG?) You shouldn't be seeing this error. Contact Tygrtraxx. <--", 2);
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, modFilePath, 4);
 
                 return;
             }
@@ -548,53 +308,46 @@ namespace Morven_Compatch_NFR_Patcher.Views
             string relativeSteamPath = Path.Combine("workshop", "content", "1158310", "3001489429");
             string sourceBase = Path.Combine(steamFolderPath, relativeSteamPath);
 
-            // Check if the resulting folder doesn't exist.
-            if (!Directory.Exists(sourceBase))
+            // Specify the file name "descriptor.mod" in that directory.
+            string descriptorFilePath = Path.Combine(sourceBase, "descriptor.mod");
+
+            // Check if the file exists.
+            if (!File.Exists(descriptorFilePath))
             {
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Error: ",
-                    Foreground = Avalonia.Media.Brushes.Red
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "The required folder structure ",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "'steamapps\\workshop\\content\\1158310\\3001489429' ",
-                    Foreground = Avalonia.Media.Brushes.Cyan
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "does not exist within your ",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Steam folder",
-                    Foreground = Avalonia.Media.Brushes.Cyan
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = ".",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "\n\n DEBUG FILE PATH: \n" + sourceBase,
-                    Foreground = Avalonia.Media.Brushes.Orange
-                });
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, $"The file \"descriptor.mod\" was not found at {descriptorFilePath}.", 1);
 
                 return;
             }
+
+            // Read all lines from the file (We are looking for the version in the file).
+            string[] lines = File.ReadAllLines(descriptorFilePath);
+
+            // Check if there are at least 6 lines in the file.
+            if (lines.Length < 6)
+            {
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, $"The file \"descriptor.mod\" is missing its version number on line 6.", 1);
+
+                return;
+            }
+
+            // The 6th line is at index 5.
+            string sixthLine = lines[5];
+
+            // Use a regular expression to extract the text between the first pair of quotation marks.
+            // The regex pattern \"([^\"]+)\" captures the text between quotes.
+            Match match = Regex.Match(sixthLine, "\"([^\"]+)\"");
+            if (!match.Success)
+            {
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The game version was not found on line 6 in the \"descriptor.mod\" file.", 1);
+
+                return;
+            }
+
+            // Output to the console that the proper game version has been found.
+            await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The mod's game version has been found.", 0);
+
+            // Save the extracted value as the game_version variable.
+            string gameVersion = "supported_version=\"" + match.Groups[1].Value + "\"";
 
             // Build the destination folder path as "morven_patch_NFR" inside the mod folder.
             string destinationBase = Path.Combine(modFolderPath, "morven_patch_NFR");
@@ -603,7 +356,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
             Directory.CreateDirectory(destinationBase);
 
             // List of subfolders to copy.
-            string[] subfolders = { "common", "events", "localization" };
+            string[] subfolders = ["common", "events", "localization"];
 
             foreach (string subfolder in subfolders)
             {
@@ -613,41 +366,8 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 // Check if this source subfolder exists.
                 if (!Directory.Exists(sourceSubfolder))
                 {
-                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                    {
-                        Text = "Error: ",
-                        Foreground = Avalonia.Media.Brushes.Red
-                    });
-
-                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                    {
-                        Text = "The required subfolder ",
-                        Foreground = Avalonia.Media.Brushes.White
-                    });
-
-                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                    {
-                        Text = $"'{subfolder}' ",
-                        Foreground = Avalonia.Media.Brushes.Cyan
-                    });
-
-                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                    {
-                        Text = "does not exist in the ",
-                        Foreground = Avalonia.Media.Brushes.White
-                    });
-
-                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                    {
-                        Text = "Morven's Mods 1.14 Compatch folder",
-                        Foreground = Avalonia.Media.Brushes.Cyan
-                    });
-
-                    ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                    {
-                        Text = ".",
-                        Foreground = Avalonia.Media.Brushes.White
-                    });
+                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The required subfolders needed for the upcoming patch, were not found in Morven's Mods 1.14 Compatch folder.", 1);
+                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "--> I suggest redownloading the mod, those folders should always exist. <--", 2);
 
                     return;
                 }
@@ -677,42 +397,31 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 }
             }
 
+            // Output to the console that we have copied all of the files to the new patched mod.
+            await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Copied all of the mod's files to the new patch mod.", 0);
+
+            // Output to the console that we have successfully deleted the necessary files patching the mod.
+            await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Deleted the unnecessary files, effectively patching it.", 3);
+
             try
             {
+                // Update the mod files with the correct game version
+                ModFileUpdater.UpdateModFiles(gameVersion);
+
+                // Output to the console that we have successfully patched the version numbers in all of the files.
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The version numbers in all of the files.\n", 3);
+
                 // Simulate patching logic with an asynchronous delay.
-                await Task.Delay(1000);
+                await Task.Delay(700);
 
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Success: ",
-                    Foreground = Avalonia.Media.Brushes.Green
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "The files have been successfully patched.",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
+                // Output to the console that we have successfully patched everything and the mod is ready.
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The mod has been patched!! It will be located in your mod folder. You must disable/uninstall his mod now to\n avoid conflicts. Otherwise, Enjoy!", 5);
             }
             catch (Exception ex)
             {
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "Critical Error: ",
-                    Foreground = Avalonia.Media.Brushes.Red
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "" + ex.Message,
-                    Foreground = Avalonia.Media.Brushes.Yellow
-                });
-
-                ConsoleOutputTextBlock.Inlines.Add(new Avalonia.Controls.Documents.Run
-                {
-                    Text = "\n\nPatch operation was unsuccessful.",
-                    Foreground = Avalonia.Media.Brushes.White
-                });
+                // Output to the console that a critical error occurred
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, ex.Message, 6);
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Patch operation was unsuccessful.", 1);
             }
         }
 

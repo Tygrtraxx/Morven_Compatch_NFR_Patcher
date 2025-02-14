@@ -1,5 +1,5 @@
 ﻿/*=============================================================================================*
-* Class: MainWindow.axaml.cs
+* Class: MainWindow
 *
 * Description: Adds a partial class that defines the code-behind for MainWindow.axaml and
 * it inherits from Avalonia.Controls.Window, making it the main window of the application.

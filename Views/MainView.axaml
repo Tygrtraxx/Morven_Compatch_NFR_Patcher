@@ -74,7 +74,7 @@
                 Text="Morven Compatch : NFR Patcher" />
         </Border>
 
-        <!--  Console output with enhanced styling using a read-only TextBlock that remains black.  -->
+        <!--  Console Output with enhanced styling using a read-only TextBlock that remains black.  -->
         <Border
             Grid.Row="1"
             Margin="0,10"
@@ -83,22 +83,108 @@
             BorderThickness="3"
             CornerRadius="4">
 
-            <!--  Console Output area using a TextBlock for multi-colored text.  -->
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
-                <TextBlock
-                    x:Name="ConsoleOutputTextBlock"
-                    Padding="20"
-                    Background="Black"
-                    FontFamily="Consolas"
-                    Foreground="White"
-                    TextWrapping="Wrap">
-                    <TextBlock.Inlines>
-                        <Run Text="Welcome to the Morven Compatch : NFR Patcher" />
-                        <LineBreak />
-                        <LineBreak />
-                        <Run Text="Please locate the appropriate folders and then click the Patch button." />
-                    </TextBlock.Inlines>
-                </TextBlock>
+                <StackPanel Orientation="Vertical">
+
+                    <!--  Centered Instructions Text at beginning of the program with a green border  -->
+                    <Border
+                        x:Name="InstructionsBorder"
+                        Margin="0,20,0,0"
+                        Padding="15"
+                        HorizontalAlignment="Center"
+                        BorderBrush="Green"
+                        BorderThickness="1">
+                        <TextBlock
+                            x:Name="InstructionsTextBlock"
+                            HorizontalAlignment="Center"
+                            FontFamily="Consolas"
+                            FontWeight="Bold"
+                            Foreground="White">
+                            <Run Text="Instructions" />
+                        </TextBlock>
+                    </Border>
+
+                    <!--  Instructions lines at beginning of the program  -->
+                    <TextBlock
+                        x:Name="InstructionsLinesTextBlock"
+                        Padding="20"
+                        Background="Black"
+                        FontFamily="Consolas"
+                        Foreground="White"
+                        TextAlignment="Left"
+                        TextWrapping="Wrap">
+
+                        <TextBlock.Inlines>
+
+                            <!--  Line 1 for the instructions to the user  -->
+                            <Run Foreground="White" Text="1:" />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="Please make sure that" />
+                            <Run Foreground="DarkRed" Text="&quot;Morven's Mods Compatch&quot;" />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="is installed." />
+                            <LineBreak />
+                            <LineBreak />
+
+                            <!--  Line 2 for the instructions to the user  -->
+                            <Run Foreground="White" Text="2:" />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="Find the proper folders for your" />
+                            <Run Foreground="DarkRed" Text="Steam" />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="and" />
+                            <Run Foreground="DarkRed" Text="mod" />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="file locations." />
+                            <LineBreak />
+                            <LineBreak />
+
+                            <!--  Line 3 for the instructions to the user  -->
+                            <Run Foreground="White" Text="3:" />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="Click the" />
+                            <Run Foreground="DarkRed" Text="Patch Button" />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="to patch the mod." />
+                            <LineBreak />
+                            <LineBreak />
+
+                            <!--  Line 4 for the instructions to the user. The runs need to be on the same line to prevent the space between 'successful' and the comma due to how "Run" works  -->
+                            <Run Foreground="White" Text="4:" />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="If patch was" /> <Run Foreground="Lime" Text="successful" /><Run Foreground="{StaticResource CustomBlue}" Text="," />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="then" />
+                            <Run
+                                FontWeight="Bold"
+                                Foreground="Red"
+                                Text="DISABLE"
+                                TextDecorations="Underline" />
+                            <Run
+                                FontWeight="Bold"
+                                Foreground="Yellow"
+                                Text="(NOT UNINSTALL)" />
+                            <Run Foreground="DarkRed" Text="&quot;Morven's Mods Compatch&quot;" />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="mod in" />
+                            <Run Foreground="Orange" Text="Crusader Kings III" />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="mod manager, or whichever mod manager you use. After," />
+                            <Run
+                                FontWeight="Bold"
+                                Foreground="Lime"
+                                Text="ENABLE"
+                                TextDecorations="Underline" />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="the" />
+                            <Run Foreground="DarkRed" Text="patched" />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="version of this mod instead." />
+                            <LineBreak />
+                            <LineBreak />
+
+                            <!--  Line 5 for the instructions to the user  -->
+                            <Run Foreground="White" Text="5:" />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="Finally, start up the game and enjoy :)" />
+                        </TextBlock.Inlines>
+                    </TextBlock>
+
+                    <!--  Main Console Output TextBlock  -->
+                    <TextBlock
+                        x:Name="ConsoleOutputTextBlock"
+                        Margin="15,10,0,0"
+                        HorizontalAlignment="Left"
+                        FontFamily="Consolas"
+                        Foreground="White" />
+
+                </StackPanel>
             </ScrollViewer>
         </Border>
 
@@ -324,7 +410,7 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 FontSize="13"
-                Text="v1.0.0 by Tygrtraxx" />
+                Text="{Binding AppVersion, StringFormat='v{0} by Tygrtraxx'}" />
         </Grid>
     </Grid>
 </UserControl>
