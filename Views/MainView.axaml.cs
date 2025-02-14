@@ -39,7 +39,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
         private async void SteamQuestionMark_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new InfoDialog();
-            dialog.ViewModel.Message = "This is the default Steam folder explanation text.";
+            dialog.ViewModel.Message = "Open Steam’s Settings, navigate to \n Downloads -> Steam Library Folder \n and check the installation path.";
             await dialog.ShowDialog(GetParentWindow());
         }
 
@@ -48,7 +48,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
         private async void ModQuestionMark_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new InfoDialog();
-            dialog.ViewModel.Message = "This is the default Mod folder explanation text.";
+            dialog.ViewModel.Message = "Typically the mod folder is in your user’s Documents or AppData folder.";
             await dialog.ShowDialog(GetParentWindow());
         }
 
