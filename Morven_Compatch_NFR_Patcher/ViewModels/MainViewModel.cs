@@ -37,34 +37,29 @@ namespace Morven_Compatch_NFR_Patcher.ViewModels
         {
             get
             {
-                // Retrieve the informational version (set by GitVersion)
-                var infoVersion = Assembly.GetExecutingAssembly()
+                // Use the entry assembly (the exe) if available; otherwise, use the executing assembly.
+                var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+                var infoVersion = assembly
                     .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
                     .InformationalVersion;
 
                 if (string.IsNullOrEmpty(infoVersion))
                     return "N/A";
 
-                // Look for a '+' sign (which often indicates build metadata in semver).
+                // Look for a '+' sign (which indicates build metadata in semver).
                 int plusIndex = infoVersion.IndexOf('+');
                 if (plusIndex != -1 && plusIndex < infoVersion.Length - 1)
                 {
-                    // Convert the string to ReadOnlySpan<char> for efficient slicing
+                    // Efficiently slice the version string to include only 7 characters of build metadata.
                     ReadOnlySpan<char> infoSpan = infoVersion.AsSpan();
-
-                    // The part before/including '+'
                     ReadOnlySpan<char> prefix = infoSpan[..(plusIndex + 1)];
-
-                    // The build metadata after '+'
                     ReadOnlySpan<char> metadataSpan = infoSpan[(plusIndex + 1)..];
 
-                    // Limit the metadata to 7 characters (adjust as needed).
                     if (metadataSpan.Length > 7)
                     {
                         metadataSpan = metadataSpan[..7];
                     }
 
-                    // Reconstruct using string.Concat for efficiency
                     infoVersion = string.Concat(prefix, metadataSpan);
                 }
 

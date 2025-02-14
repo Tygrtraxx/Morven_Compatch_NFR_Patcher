@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- PropertyGroup defines project-wide settings -->
+	<PropertyGroup>
+
+		<!-- Produce a Windows executable -->
+		<OutputType>WinExe</OutputType>
+
+		<!-- Target .NET 8.0 -->
+		<TargetFramework>net8.0</TargetFramework>
+
+		<!-- Specify the application manifest and icon -->
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<ApplicationIcon>Assets\author.ico</ApplicationIcon>
+
+		<!-- Assembly name for the output executable -->
+		<AssemblyName>Morven Compatch NFR</AssemblyName>
+
+		<!-- Enable GitVersion integration -->
+		<UseGitVersion>true</UseGitVersion>
+
+		<!-- 
+			Tell GitVersion to use the solution directory (which now contains the .git folder and GitVersion.yml)
+			as both the repository path and working directory.
+			$(SolutionDir) is a built-in MSBuild property that points to the directory containing the solution file.
+		-->
+		<GitVersion_RepositoryPath>$(SolutionDir)</GitVersion_RepositoryPath>
+		<GitVersion_WorkingDirectory>$(SolutionDir)</GitVersion_WorkingDirectory>
+		<GitVersion_OverrideWorkingDirectory>true</GitVersion_OverrideWorkingDirectory>
+
+		<!-- 
+		  These version properties are automatically populated by GitVersion.MsBuild 
+		  based on the Git history and the GitVersion.yml configuration.
+		-->
+		<Version>$(GitVersion_SemVer)</Version>
+		<AssemblyVersion>$(GitVersion_AssemblySemVer)</AssemblyVersion>
+		<FileVersion>$(GitVersion_AssemblySemFileVer)</FileVersion>
+		<InformationalVersion>$(GitVersion_InformationalVersion)</InformationalVersion>
+	</PropertyGroup>
+
+	<!-- ItemGroup for NuGet package and project references -->
+	<ItemGroup>
+
+		<!-- Avalonia.Desktop is required for a WinExe Avalonia app -->
+		<PackageReference Include="Avalonia.Desktop" Version="11.2.3" />
+
+		<!-- GitVersion.MsBuild integrates GitVersion into the build process -->
+		<PackageReference Include="GitVersion.MsBuild" Version="6.1.0" PrivateAssets="all" />
+
+		<!-- Reference the library project containing core functionality -->
+		<ProjectReference Include="..\Morven_Compatch_NFR_Patcher\Morven_Compatch_NFR_Patcher.csproj" />
+
+		<!-- Include the Assets folder  -->
+		<Folder Include="Assets\" />
+
+	</ItemGroup>
+
+</Project>
