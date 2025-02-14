@@ -13,6 +13,7 @@
 *   raises change notifications automatically.
 *=============================================================================================*/
 
+using System;
 using System.Reflection;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -48,17 +49,23 @@ namespace Morven_Compatch_NFR_Patcher.ViewModels
                 int plusIndex = infoVersion.IndexOf('+');
                 if (plusIndex != -1 && plusIndex < infoVersion.Length - 1)
                 {
-                    // Extract the part after '+'
-                    var metadata = infoVersion.Substring(plusIndex + 1);
+                    // Convert the string to ReadOnlySpan<char> for efficient slicing
+                    ReadOnlySpan<char> infoSpan = infoVersion.AsSpan();
+
+                    // The part before/including '+'
+                    ReadOnlySpan<char> prefix = infoSpan[..(plusIndex + 1)];
+
+                    // The build metadata after '+'
+                    ReadOnlySpan<char> metadataSpan = infoSpan[(plusIndex + 1)..];
 
                     // Limit the metadata to 7 characters (adjust as needed).
-                    if (metadata.Length > 7)
+                    if (metadataSpan.Length > 7)
                     {
-                        metadata = metadata.Substring(0, 7);
+                        metadataSpan = metadataSpan[..7];
                     }
 
-                    // Reconstruct: everything up to '+' + shortened metadata
-                    infoVersion = infoVersion.Substring(0, plusIndex + 1) + metadata;
+                    // Reconstruct using string.Concat for efficiency
+                    infoVersion = string.Concat(prefix, metadataSpan);
                 }
 
                 return infoVersion;
