@@ -141,10 +141,10 @@ namespace Morven_Compatch_NFR_Patcher.Helpers
                 }
 
                 // Extract the first part (up to the break point) and trim any trailing spaces.
-                string part1 = totalMessageLength.Substring(0, breakIndex).TrimEnd();
+                string part1 = totalMessageLength[..breakIndex].TrimEnd();
 
                 // Extract the remainder of the totalMessageLength and trim any leading spaces.
-                string part2 = totalMessageLength.Substring(breakIndex).TrimStart();
+                string part2 = totalMessageLength[breakIndex..].TrimStart();
 
                 // Output the broken up messages to the console.
                 AppendColoredTextWithKeywords(target, part1 + "\n" + part2);
