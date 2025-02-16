@@ -30,9 +30,9 @@
 		
 		<!-- Avalonia packages for UI functionality -->
 		
-		<PackageReference Include="Avalonia" Version="11.2.3" />
-		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.3" />
-		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.3" />
+		<PackageReference Include="Avalonia" Version="11.2.4" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.4" />
+		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.4" />
 		
 		<!-- CommunityToolkit.Mvvm for MVVM helpers -->
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
@@ -41,7 +41,7 @@
 		<PackageReference Include="GitVersion.MsBuild" Version="6.1.0" PrivateAssets="all" />
 		
 		<!-- Include Avalonia.Diagnostics only during Debug builds -->
-		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.2.3" />
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.2.4" />
 		
 	</ItemGroup>
 
