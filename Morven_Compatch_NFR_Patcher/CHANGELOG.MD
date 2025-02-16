@@ -14,7 +14,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/)
 ### Fixed
 - _List any bug fixes._
 
+------------------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------------------
+
+## [2.1.0] - 2025-02-15
+
+### Fixed
+- Fixed issues with rapid button clicks causing UI update problems.
+- Fixed an issue where rapid clicks were not properly clearing UI text.
+- Fix an issue where the GitVersion was displaying the default version string.
+
+### Changed
+- Made the instructions a bit more clear for the user to understand better.
 ------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------------
@@ -35,22 +47,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/)
 
 ------------------------------------------------------------------------------------------------
 
-## [2.1.0] - 2025-02-15
-
-### Fixed
-- Fixed issues with rapid button clicks causing UI update problems.
-- Fixed an issue where rapid clicks were not properly clearing UI text.
-- Fix an issue where the GitVersion was displaying the default version string.
-------------------------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------------------------
-
 ## [1.0.0] - 2025-02-08
 ### Added
 - Initial release of the **Morven Compatch NFR Patcher**.
 - Basic functionality for patching based on Steam and mod folder inputs.
 - User interface built using Avalonia.
 - Static version information to display the current version of the patcher.
+------------------------------------------------------------------------------------------------
+
 ------------------------------------------------------------------------------------------------
 
 [Unreleased]:

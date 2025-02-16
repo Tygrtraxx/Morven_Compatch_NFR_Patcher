@@ -126,11 +126,11 @@
 
                             <!--  Line 2 for the instructions to the user  -->
                             <Run Foreground="White" Text="2:" />
-                            <Run Foreground="{StaticResource CustomBlue}" Text="Find the proper folders for your" />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="Find your" />
                             <Run Foreground="DarkRed" Text="Steam" />
                             <Run Foreground="{StaticResource CustomBlue}" Text="and" />
                             <Run Foreground="DarkRed" Text="mod" />
-                            <Run Foreground="{StaticResource CustomBlue}" Text="file locations." />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="file locations and select them." />
                             <LineBreak />
                             <LineBreak />
 
@@ -147,28 +147,32 @@
                             <Run Foreground="{StaticResource CustomBlue}" Text="If patch was" /> <Run Foreground="Lime" Text="successful" /><Run Foreground="{StaticResource CustomBlue}" Text="," />
                             <Run Foreground="{StaticResource CustomBlue}" Text="then" />
                             <Run
-                                FontWeight="Bold"
                                 Foreground="Red"
-                                Text="disable or uninstall"
+                                Text="uninstall"
                                 TextDecorations="Underline" />
 
                             <Run Foreground="DarkRed" Text="&quot;Morven's Mods Compatch&quot;" />
                             <Run Foreground="{StaticResource CustomBlue}" Text="mod in" />
                             <Run Foreground="Orange" Text="Crusader Kings III" />
-                            <Run Foreground="{StaticResource CustomBlue}" Text="mod manager, or whichever mod manager you use. After," />
-                            <Run
-                                FontWeight="Bold"
-                                Foreground="Lime"
-                                Text="ENABLE"
-                                TextDecorations="Underline" />
-                            <Run Foreground="{StaticResource CustomBlue}" Text="the" />
-                            <Run Foreground="DarkRed" Text="patched" />
-                            <Run Foreground="{StaticResource CustomBlue}" Text="version of this mod instead." />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="mod manager, or whichever mod manager you use." />
                             <LineBreak />
                             <LineBreak />
 
                             <!--  Line 5 for the instructions to the user  -->
                             <Run Foreground="White" Text="5:" />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="Now" />
+                            <Run
+                                Foreground="Lime"
+                                Text="enable"
+                                TextDecorations="Underline" />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="the" />
+                            <Run Foreground="DarkRed" Text="patched" />
+                            <Run Foreground="{StaticResource CustomBlue}" Text="version of this mod in the mod manager." />
+                            <LineBreak />
+                            <LineBreak />
+
+                            <!--  Line 6 for the instructions to the user  -->
+                            <Run Foreground="White" Text="6:" />
                             <Run Foreground="{StaticResource CustomBlue}" Text="Finally, start up the game and enjoy :)" />
                         </TextBlock.Inlines>
                     </TextBlock>
