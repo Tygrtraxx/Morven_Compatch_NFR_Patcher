@@ -1,17 +1,35 @@
-# Morven Compatch : No Fevour Rebalance(NFR) Patcher
+# Morven Compatch: No Fevour Rebalance (NFR) Patcher
 
-Morven Compatch NFR Patcher is a mod for [Crusader Kings III](https://store.steampowered.com/app/1158310/Crusader_Kings_III/) that patches out 
-one of the mods in [Morven's Mods Compatch](https://steamcommunity.com/sharedfiles/filedetails/?id=3001489429) that I found to be not fun. 
+**Morven Compatch NFR Patcher** is a mod for [Crusader Kings III](https://store.steampowered.com/app/1158310/Crusader_Kings_III/) designed to disable a problematic mod from [Morven's Mods Compatch](https://steamcommunity.com/sharedfiles/filedetails/?id=3001489429). The original mod unbalances the game by triggering heresy when favor is either too high (over 85%) or too low (under 50%), unfairly penalizing religions regardless of their performance. This patcher aims to restore balance and improve gameplay.
 
-The reason I decided to patch out this mod is because being over 85% fevour led to heresys while also being under led to heresys. 
-So religions that were doing really well, were essentially punished, along with religions doing really bad.
+## How It Works
 
-## Instructions
+Rather than directly modifying the original mod's files (which can be overwritten by updates), this patcher:
+- **Copies the mod files:** Creates a duplicate in your mods folder.
+- **Applies targeted modifications:** Patches only the specific files that cause the imbalance.
+- **Keeps the original intact:** This way, you can always reinstall the unmodified mod if needed.
 
-1: Download the Morven Compatch : NFR Patcher.
-2: Select where your Steam/steampapps folder location is.
-3: Select where your mods folder is. (Typically in Documents/Paradox Interactive/Crusader Kings III). 
-4: Click the Patch button to patch his mod.
-5. If the patch was successful, you can then uninstall his mod and there should be a new patched version located in your mods folder.
-6. Enable the patched version of his mod and it will behave like his mod, but without that 1 mod.
-7. Enjoy!
+## Installation & Usage
+
+1. **Download the Patch:**  
+   Get the latest release of the Morven Compatch NFR Patcher from our [GitHub Releases](https://github.com/Tygrtraxx/Morven_Compatch_NFR_Patcher/releases).
+
+2. **Configure Folders:**  
+   - **Steam Folder:** Point to your Steam (or SteamApps) installation folder.
+   - **Mods Folder:** Specify your mods folder, usually located in:  
+     `Documents/Paradox Interactive/Crusader Kings III`
+
+3. **Run the Patcher:**  
+   Launch the patcher and click the **Patch** button. The tool will:
+   - Copy the necessary mod files.
+   - Apply the fixes to disable the unbalanced heresy triggers.
+
+4. **Update Your Mods:**  
+   To avoid conflicts, uninstall the original Morven's Mods Compatch mod. The patcher will output a new, patched version in your mods folder. Enable the patched mod in your mod manager.
+
+5. **Enjoy:**  
+   Start Crusader Kings III and experience a more balanced gameplay experience!
+
+## License
+
+This project is licensed under the GNU GPL v3.0 License. See the [LICENSE](LICENSE) file for details.
