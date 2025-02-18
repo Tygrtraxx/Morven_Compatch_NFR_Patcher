@@ -10,19 +10,21 @@
     Line 24 : Sets the default XML namespace for Avalonia UI elements.
     Line 25 : Provides XAML language constructs (e.g. x:Class, x:Name, etc.).
     Line 26 : Used for design-time properties and data in Visual Studio.
-    Line 27 : Maps the 'local' prefix to the CLR namespace that contains the Converters.
-    Line 28 : Enables markup compatibility features, such as ignoring design-time attributes at runtime.
-    Line 29 : Maps the 'vm' prefix to the CLR namespace that contains the ViewModels.
-    Line 30 : Specifies the design-time height for the control in the designer.
+    Line 27 : Maps the 'helpers' prefix to the CLR namespace that contains the Helpers.
+    Line 28 : Maps the 'local' prefix to the CLR namespace that contains the Converters.
+    Line 29 : Enables markup compatibility features, such as ignoring design-time attributes at runtime.
+    Line 30 : Maps the 'vm' prefix to the CLR namespace that contains the ViewModels.
+    Line 31 : Specifies the design-time height for the control in the designer.
     Line 32 : Specifies the design-time width for the control in the designer.
     Line 33 : Declares that the DataContext for this UserControl is of type 'MainViewModel' for compile-time binding checks.
-    Line 33 : Instructs the XAML parser to ignore all attributes in the 'd' (design-time) namespace at runtime.
+    Line 34 : Instructs the XAML parser to ignore all attributes in the 'd' (design-time) namespace at runtime.
 -->
 <UserControl
     x:Class="Morven_Compatch_NFR_Patcher.Views.MainView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:Morven_Compatch_NFR_Patcher.Helpers"
     xmlns:local="clr-namespace:Morven_Compatch_NFR_Patcher.Converters"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:Morven_Compatch_NFR_Patcher.ViewModels"
@@ -405,13 +407,14 @@
                 </Button.Transitions>
             </Button>
 
-            <!--  Version Info.  -->
+            <!--  Version Info  -->
             <TextBlock
                 Grid.Row="1"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 FontSize="13"
                 Text="{Binding AppVersion, StringFormat='v{0} by Tygrtraxx'}" />
+
         </Grid>
     </Grid>
 </UserControl>

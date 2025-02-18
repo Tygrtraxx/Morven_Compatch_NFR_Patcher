@@ -1,56 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<!-- Main project properties -->
 	<PropertyGroup>
-
-		<!-- Target .NET 8.0 with nullable enabled and latest C# language version -->
+		
+		<!-- Target .NET 8.0 with nullable enabled and the latest C# language version -->
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
-
+		
 		<!-- This project produces a library -->
 		<OutputType>Library</OutputType>
-
-		<!-- Enable GitVersion -->
-		<UseGitVersion>true</UseGitVersion>
-
-		<!-- Version properties will be set automatically by GitVersion.MsBuild -->
-		<Version>$(GitVersion_SemVer)</Version>
-		<AssemblyVersion>$(GitVersion_AssemblySemVer)</AssemblyVersion>
-		<FileVersion>$(GitVersion_AssemblySemFileVer)</FileVersion>
-		<InformationalVersion>$(GitVersion_InformationalVersion)</InformationalVersion>
-
+		
 	</PropertyGroup>
 
-	<!-- Package references -->
 	<ItemGroup>
-
-		<!-- Include Avalonia resource files  -->
+		
+		<!-- Include Avalonia resource files -->
 		<AvaloniaResource Include="Assets\**" />
 		
 		<!-- Avalonia packages for UI functionality -->
-		
 		<PackageReference Include="Avalonia" Version="11.2.4" />
 		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.4" />
 		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.4" />
 		
-		<!-- CommunityToolkit.Mvvm for MVVM helpers -->
+		<!-- MVVM helpers from CommunityToolkit -->
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		
-		<!-- GitVersion.MsBuild integrates GitVersion into the build process -->
-		<PackageReference Include="GitVersion.MsBuild" Version="6.1.0" PrivateAssets="all" />
-		
-		<!-- Include Avalonia.Diagnostics only during Debug builds -->
+		<!-- Avalonia.Diagnostics for Debug builds -->
 		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.2.4" />
 		
+		<!-- Git2SemVer integration (A modified version of MSBuild to work with Visual Studio 6.0+) -->
+		<PackageReference Include="NoeticTools.Git2SemVer.MSBuild" Version="2.0.0" />
+		
 	</ItemGroup>
-
-	<!-- Optional: A target that prints GitVersion values to the build output -->
-	<Target Name="ShowGitVersion" AfterTargets="CalculateGitVersion" Condition="'$(DesignTimeBuild)' != 'true'">
-		<Message Text="GitVersion_SemVer: $(GitVersion_SemVer)" Importance="High" />
-		<Message Text="GitVersion_AssemblySemVer: $(GitVersion_AssemblySemVer)" Importance="High" />
-		<Message Text="GitVersion_AssemblySemFileVer: $(GitVersion_AssemblySemFileVer)" Importance="High" />
-		<Message Text="GitVersion_InformationalVersion: $(GitVersion_InformationalVersion)" Importance="High" />
-	</Target>
-
 </Project>

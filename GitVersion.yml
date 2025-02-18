@@ -21,6 +21,7 @@ branches:
   hotfix:
     # Matches hotfix branches that start with "hotfix-" or "hotfix/".
     regex: ^hotfix(es)?[/-]
+    tag-prefix: beta
     increment: Patch
     source-branches:
       - master

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "noetictools.git2semver.tool": {
+      "version": "1.1.0",
+      "commands": [
+        "git2semver"
+      ],
+      "rollForward": false
+    }
+  }
+}
