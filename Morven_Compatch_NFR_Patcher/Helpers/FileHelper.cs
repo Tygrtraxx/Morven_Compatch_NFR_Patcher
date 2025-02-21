@@ -1,9 +1,9 @@
 ﻿/*=============================================================================================*
-* Class: FileHelper
+*   Class: FileHelper
 *
-* Description:
-*   Provides helper methods for file and directory operations.
-*   This class includes methods for copying directories recursively.
+*   Description:
+*       Provides helper methods for file and directory operations.
+*       This class includes methods for copying directories recursively.
 *
 *=============================================================================================*/
 
