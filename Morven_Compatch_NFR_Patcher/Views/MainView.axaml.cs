@@ -18,8 +18,6 @@ using Avalonia.Interactivity;
 using Avalonia.VisualTree;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
-using Morven_Compatch_NFR_Patcher.ViewModels;
-using Morven_Compatch_NFR_Patcher.Helpers;
 using Avalonia.Media;
 using Avalonia.Controls.Converters;
 using Morven_Compatch_NFR_Patcher.ViewModels;
