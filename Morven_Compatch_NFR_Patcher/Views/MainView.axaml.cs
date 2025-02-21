@@ -279,7 +279,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
                         fileLines[6] = lineToInsert;
 
                         // Output to the console that the program is changing the absolute path to the new mod.
-                        await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Modifying the absolute path, for the upcoming patched mod.", 3);
+                        await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Modifying the absolute path, for the patched version of the mod.", 3);
                     }
                     else
                     {
@@ -287,7 +287,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
                         fileLines.Add(lineToInsert);
 
                         // Output to the console that the program is changing the absolute path to the new mod.
-                        await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Adding a new absolute path, for the upcoming patched mod.", 3);
+                        await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Adding a new absolute path, for the patched version of the mod.", 3);
                     }
 
                     // Write the modified content back to the file
@@ -298,7 +298,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 {
                     // Tell the user something went wrong and the program couldn't find an important file that should be bundled with it.
                     await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The mod file \"morven_patch_NFR.mod\" was not found.", 1);
-                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "--> (BUG?) You shouldn't be seeing this error. Contact Tygrtraxx. <--", 2);
+                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "(BUG?) You shouldn't be seeing this error. Contact Tygrtraxx.", 2);
                     await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, modFilePath, 4);
 
                     return;
