@@ -1,10 +1,10 @@
 ﻿/*=============================================================================================*
-* Class: MainView
+*   Class: MainView
 *
-* Description:
-*   This is the code-behind for the MainView UserControl. It initializes the UI components
-*   defined in the associated XAML file (MainView.axaml) and handles user interactions,
-*   such as clicks on the question mark buttons which display an InfoDialog.
+*   Description:
+*       This is the code-behind for the MainView UserControl. It initializes the UI components
+*       defined in the associated XAML file (MainView.axaml) and handles user interactions,
+*       such as clicks on the question mark buttons which display an InfoDialog.
 *=============================================================================================*/
 
 using System;
@@ -18,11 +18,10 @@ using Avalonia.Interactivity;
 using Avalonia.VisualTree;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
-using Morven_Compatch_NFR_Patcher.ViewModels;
-using Morven_Compatch_NFR_Patcher.Helpers;
 using Avalonia.Media;
 using Avalonia.Controls.Converters;
-
+using Morven_Compatch_NFR_Patcher.ViewModels;
+using Morven_Compatch_NFR_Patcher.Helpers;
 
 namespace Morven_Compatch_NFR_Patcher.Views
 {

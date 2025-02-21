@@ -1,16 +1,16 @@
 ﻿/*=============================================================================================*
-* Class: App
+*   Class: App
 *
-* Description:
-*   This class is the main application entry point for the Morven Compatch NFR Patcher.
-*   It extends Avalonia's Application class and is responsible for loading the XAML resources,
-*   initializing the application's framework, and setting up the main window based on the type 
-*   of application lifetime.
+*   Description:
+*       This class is the main application entry point for the Morven Compatch NFR Patcher.
+*       It extends Avalonia's Application class and is responsible for loading the XAML resources,
+*       initializing the application's framework, and setting up the main window based on the type 
+*       of application lifetime.
 *
-*   When the framework initialization is completed, it removes extra Avalonia data validation 
-*   to prevent duplicate validation errors, then checks whether the app is running in classic 
-*   desktop mode or single-view mode, and finally creates and assigns the appropriate main window 
-*   or view with its DataContext set to a new instance of MainViewModel.
+*       When the framework initialization is completed, it removes extra Avalonia data validation 
+*       to prevent duplicate validation errors, then checks whether the app is running in classic 
+*       desktop mode or single-view mode, and finally creates and assigns the appropriate main window 
+*       or view with its DataContext set to a new instance of MainViewModel.
 *=============================================================================================*/
 
 using Avalonia;

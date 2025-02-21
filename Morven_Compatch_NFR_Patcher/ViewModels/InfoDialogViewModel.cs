@@ -1,9 +1,9 @@
 ﻿/*=============================================================================================*
-* Class: InfoDialogViewModel
+*   Class: InfoDialogViewModel
 *
-* Description:
-*   This ViewModel is responsible for providing the data for the InfoDialog.
-*   It includes a Message property that notifies the UI when changed.
+*   Description:
+*       This ViewModel is responsible for providing the data for the InfoDialog.
+*       It includes a Message property that notifies the UI when changed.
 *=============================================================================================*/
 
 using CommunityToolkit.Mvvm.ComponentModel;

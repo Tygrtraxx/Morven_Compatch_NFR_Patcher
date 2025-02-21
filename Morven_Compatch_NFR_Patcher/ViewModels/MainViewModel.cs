@@ -1,7 +1,7 @@
 ﻿/*=============================================================================================*
 * Class: MainViewModel
 *
-* Description: 
+*   Description: 
 *   This ViewModel serves as the primary data context for the main UI. It holds the 
 *   folder paths for the Steam folder and mod folder, and provides computed properties:
 *   - 'CanPatch' indicates whether both folders have been specified.

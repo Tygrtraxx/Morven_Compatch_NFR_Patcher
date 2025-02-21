@@ -1,17 +1,17 @@
 ﻿/*=============================================================================================*
-* Class: ModFilerUpdater
+*   Class: ModFilerUpdater
 * 
-* Description: ModFileUpdater is a helper class responsible for updating mod descriptor files.
-* It modifies specific lines in the mod files to ensure compatibility with a given game version
+*   Description: ModFileUpdater is a helper class responsible for updating mod descriptor files.
+*   It modifies specific lines in the mod files to ensure compatibility with a given game version
 * 
-* This class performs the following operations:
-* - Locates the mod descriptor files in the "Assets/ModFiles" directory.
-* - Updates the 6th line in "morven_patch_NFR.mod" and "descriptor.mod" with the provided game version.
-* - Ensures the target files exist before attempting modifications.
-* - Provides error handling to prevent unexpected crashes.
+*   This class performs the following operations:
+*       - Locates the mod descriptor files in the "Assets/ModFiles" directory.
+*       - Updates the 6th line in "morven_patch_NFR.mod" and "descriptor.mod" with the provided game version.
+*       - Ensures the target files exist before attempting modifications.
+*       - Provides error handling to prevent unexpected crashes.
 * 
-* Usage:
-* Call ModFileUpdater.UpdateModFiles(gameVersion) to apply the version update.
+*   Usage:
+*   Call ModFileUpdater.UpdateModFiles(gameVersion) to apply the version update.
 *=============================================================================================*/
 
 using System;
