@@ -355,8 +355,8 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 // Save the extracted value as the game_version variable.
                 string gameVersion = "supported_version=\"" + match.Groups[1].Value + "\"";
 
-                // Build the destination folder path as "morven_patch_NFR" inside the mod folder.
-                string destinationBase = Path.Combine(modFolderPath, "morven_patch_NFR");
+                // Build the destination folder path as "Morven_Compatch_NFR (Patched)" inside the mod folder.
+                string destinationBase = Path.Combine(modFolderPath, "Morven_Compatch_NFR (Patched)");
 
                 // Ensure the destination folder exists.
                 Directory.CreateDirectory(destinationBase);
@@ -378,14 +378,14 @@ namespace Morven_Compatch_NFR_Patcher.Views
                         return;
                     }
 
-                    // Build the destination subfolder path inside "morven_patch_NFR".
+                    // Build the destination subfolder path inside "Morven_Compatch_NFR (Patched)".
                     string destinationSubfolder = Path.Combine(destinationBase, subfolder);
 
                     // Copy the entire subfolder recursively.
                     FileHelper.CopyDirectory(sourceSubfolder, destinationSubfolder);
 
-                    // Define the base mod folder path (i.e. the "morven_patch_NFR" folder inside the mod folder).
-                    string modBasePath = Path.Combine(modFolderPath, "morven_patch_NFR");
+                    // Define the base mod folder path (i.e. the "Morven_Compatch_NFR (Patched)" folder inside the mod folder).
+                    string modBasePath = Path.Combine(modFolderPath, "Morven_Compatch_NFR (Patched)");
 
                     // Build the full path for each file to delete (Patch).
                     string fileToDelete1 = Path.Combine(modBasePath, "events", "religion_events", "heresy_events.txt");
