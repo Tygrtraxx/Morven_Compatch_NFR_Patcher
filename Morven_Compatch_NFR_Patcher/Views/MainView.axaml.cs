@@ -23,7 +23,6 @@ using Avalonia.Controls.Converters;
 using Morven_Compatch_NFR_Patcher.ViewModels;
 using Morven_Compatch_NFR_Patcher.Helpers;
 
-
 namespace Morven_Compatch_NFR_Patcher.Views
 {
     public partial class MainView : UserControl
