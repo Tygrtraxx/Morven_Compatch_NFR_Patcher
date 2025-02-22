@@ -1,13 +1,18 @@
-# Morven Compatch: No Fevour Rebalance (NFR) Patcher
+# Morven Compatch: No Fervour Rebalance (NFR) Patcher
 
-**Morven Compatch NFR Patcher** is a mod for [Crusader Kings III](https://store.steampowered.com/app/1158310/Crusader_Kings_III/) designed to disable a problematic mod from [Morven's Mods Compatch](https://steamcommunity.com/sharedfiles/filedetails/?id=3001489429). The original mod unbalances the game by triggering heresy when favor is either too high (over 85%) or too low (under 50%), unfairly penalizing religions regardless of their performance. This patcher aims to restore balance and improve gameplay.
+**Morven Compatch NFR Patcher** is a mod for [Crusader Kings III](https://store.steampowered.com/app/1158310/Crusader_Kings_III/) designed to disable a problematic mod from [Kaepbora's Morven's Mods Compatch](https://steamcommunity.com/sharedfiles/filedetails/?id=3001489429). The original mod’s "religious mania" mechanic—and other minor features intended to curb runaway growth—actually triggers excessive heresy, causing mass destabilization and penalizing large, successful religions. This patcher removes the associated files so that thriving religions can be properly rewarded.
+
+## Prerequisites
+
+- **Kaepbora's Morven's Mods 1.14 Compatch:**  
+  You must have [Kaepbora's Morven's Mods 1.14 Compatch](https://steamcommunity.com/sharedfiles/filedetails/?id=3001489429) installed before using this patcher.
 
 ## How It Works
 
-Rather than directly modifying the original mod's files (which can be overwritten by updates), this patcher:
+Rather than modifying the original mod’s files directly (which can be overwritten by updates), this patcher:
 - **Copies the mod files:** Creates a duplicate in your mods folder.
-- **Applies targeted modifications:** Patches only the specific files that cause the imbalance.
-- **Keeps the original intact:** This way, you can always reinstall the unmodified mod if needed.
+- **Applies targeted modifications:** Removes only the specific files associated with [Fervour Midpoint Rebalance – Fervor Tends Towards 50%](https://steamcommunity.com/sharedfiles/filedetails/?id=2249720608) that cause the imbalance.
+- **Keeps the original intact:** Allowing you to reinstall or re-enable the unmodified mod if needed.
 
 ## Installation & Usage
 
@@ -23,13 +28,16 @@ Rather than directly modifying the original mod's files (which can be overwritte
    Launch the patcher and click the **Patch** button. The tool will:
    - Copy the necessary mod files.
    - Apply the fixes to disable the unbalanced heresy triggers.
+   - Remove the files associated with [Fervour Midpoint Rebalance – Fervor Tends Towards 50%](https://steamcommunity.com/sharedfiles/filedetails/?id=2249720608).
 
 4. **Update Your Mods:**  
-   To avoid conflicts, uninstall the original Morven's Mods Compatch mod. The patcher will output a new, patched version in your mods folder. Enable the patched mod in your mod manager.
+   - **Disable or uninstall both** the following:  
+     - The original [Morven's Mods Compatch](https://steamcommunity.com/sharedfiles/filedetails/?id=3001489429).  
+     - [Fervour Midpoint Rebalance – Fervor Tends Towards 50%](https://steamcommunity.com/sharedfiles/filedetails/?id=2249720608) (its files are removed by the patcher).  
+   - **Important:** Failing to disable or uninstall both mods can lead to conflicts, corrupted saves, or even crashes.  
+   - Enable the newly patched version in your mod manager.
 
 5. **Enjoy:**  
-   Start Crusader Kings III and experience a more balanced gameplay experience!
+   Start Crusader Kings III and enjoy a more balanced gameplay experience!
 
 ## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

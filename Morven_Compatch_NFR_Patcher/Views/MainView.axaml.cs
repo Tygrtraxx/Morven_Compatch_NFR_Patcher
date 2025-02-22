@@ -358,7 +358,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Copying all of the mod's files to the new patch mod.", 0);
 
                 // Output to the console that we have successfully deleted the necessary files patching the mod.
-                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Deleted the \"No Fevour Rebalance\" files.", 3);
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Deleted the \"No Fervour Rebalance\" files.", 3);
 
                 // Determine the absolute mod folder path and normalize the path to use forward slashes.
                 string normalizedModFolderPath = modFolderPath.Replace("\\", "/");
