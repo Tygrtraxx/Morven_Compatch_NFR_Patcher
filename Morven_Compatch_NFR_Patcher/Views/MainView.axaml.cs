@@ -23,6 +23,7 @@ using Avalonia.Controls.Converters;
 using Morven_Compatch_NFR_Patcher.ViewModels;
 using Morven_Compatch_NFR_Patcher.Helpers;
 
+
 namespace Morven_Compatch_NFR_Patcher.Views
 {
     public partial class MainView : UserControl
@@ -99,9 +100,9 @@ namespace Morven_Compatch_NFR_Patcher.Views
         private async void PatchButton_Click(object sender, RoutedEventArgs e)
         {
             // Prevent re-entrancy: if already processing, exit.
-            if (_isProcessing) 
-            { 
-                return; 
+            if (_isProcessing)
+            {
+                return;
             }
 
             _isProcessing = true;
@@ -304,10 +305,10 @@ namespace Morven_Compatch_NFR_Patcher.Views
                     return;
                 }
 
-                // Define the source directory where the mod files are located.
+                // Define the source directory where the mod files in the patch program are located.
                 string sourceDir = Path.Combine(AppContext.BaseDirectory, "Assets", "ModFiles");
 
-                // Copy the newly edited mod file to the mod directory.
+                // Copy the newly edited patched mod file (morven_patch_NFR.mod) to the mod directory.
                 FileHelper.CopyDirectory(sourceDir, modFolderPath);
 
                 // Build the relative path from the Steam folder to the source base folder.
@@ -355,8 +356,8 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 // Save the extracted value as the game_version variable.
                 string gameVersion = "supported_version=\"" + match.Groups[1].Value + "\"";
 
-                // Build the destination folder path as "Morven_Compatch_NFR (Patched)" inside the mod folder.
-                string destinationBase = Path.Combine(modFolderPath, "Morven_Compatch_NFR (Patched)");
+                // Build the destination folder path as "morven_patch_NFR" inside the mod folder.
+                string destinationBase = Path.Combine(modFolderPath, "morven_patch_NFR");
 
                 // Ensure the destination folder exists.
                 Directory.CreateDirectory(destinationBase);
@@ -378,14 +379,14 @@ namespace Morven_Compatch_NFR_Patcher.Views
                         return;
                     }
 
-                    // Build the destination subfolder path inside "Morven_Compatch_NFR (Patched)".
+                    // Build the destination subfolder path inside "morven_patch_NFR".
                     string destinationSubfolder = Path.Combine(destinationBase, subfolder);
 
                     // Copy the entire subfolder recursively.
                     FileHelper.CopyDirectory(sourceSubfolder, destinationSubfolder);
 
-                    // Define the base mod folder path (i.e. the "Morven_Compatch_NFR (Patched)" folder inside the mod folder).
-                    string modBasePath = Path.Combine(modFolderPath, "Morven_Compatch_NFR (Patched)");
+                    // Define the base mod folder path (i.e. the "morven_patch_NFR" folder inside the mod folder).
+                    string modBasePath = Path.Combine(modFolderPath, "morven_patch_NFR");
 
                     // Build the full path for each file to delete (Patch).
                     string fileToDelete1 = Path.Combine(modBasePath, "events", "religion_events", "heresy_events.txt");
