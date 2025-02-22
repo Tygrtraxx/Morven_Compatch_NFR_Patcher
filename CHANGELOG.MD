@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/)
 - Fixed an issue with rapid button clicks causing UI update problems.
 - Fixed an issue where rapid clicks were not properly clearing UI text.
 - Fixed an issue where the files included in the patcher where not being properly recognized as output files, so it made the program not work.
+- Fixed an issue where the version files were being updated interally in the patcher, instead of updating the newly copied files located in the user's mod directory.
 
 ### Changed
 - Made the instructions a bit more clear for the user to understand better.
