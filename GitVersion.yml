@@ -24,5 +24,6 @@ branches:
     increment: Patch
     source-branches:
       - master
+      - dev
 ignore:
   sha: []
