@@ -51,7 +51,6 @@
 		<ProjectReference Include="..\Morven_Compatch_NFR_Patcher\Morven_Compatch_NFR_Patcher.csproj" />
 		
 		<!-- Include asset files -->
-		<Folder Include="Assets\" />
 		
 	</ItemGroup>
 

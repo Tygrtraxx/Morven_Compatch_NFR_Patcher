@@ -26,7 +26,17 @@
 	<ItemGroup>
 		
 		<!-- Include Avalonia resource files -->
+		<!-- We also exclude the mod files and copy them to the output directory. -->
+		<!-- This is so the program can actually manipulate and move them as needed -->
 		<AvaloniaResource Include="Assets\**" />
+		<AvaloniaResource Remove="Assets\ModFiles\morven_patch_NFR.mod" />
+		<AvaloniaResource Remove="Assets\ModFiles\morven_patch_NFR\descriptor.mod" />
+		<Content Include="Assets\ModFiles\morven_patch_NFR.mod">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\ModFiles\morven_patch_NFR\descriptor.mod">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 		
 		<!-- Avalonia packages for UI functionality -->
 		
