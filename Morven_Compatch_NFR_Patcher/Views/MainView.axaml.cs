@@ -279,7 +279,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
                         fileLines[6] = lineToInsert;
 
                         // Output to the console that the program is changing the absolute path to the new mod.
-                        await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Modifying the absolute path, for the patched version of the mod.", 3);
+                        await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Modifying the path, for the patched version of the mod.", 3);
                     }
                     else
                     {
@@ -287,7 +287,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
                         fileLines.Add(lineToInsert);
 
                         // Output to the console that the program is changing the absolute path to the new mod.
-                        await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Adding a new absolute path, for the patched version of the mod.", 3);
+                        await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Adding a new path, for the patched version of the mod.", 3);
                     }
 
                     // Write the modified content back to the file
@@ -413,7 +413,7 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 ModFileUpdater.UpdateModFiles(gameVersion);
 
                 // Output to the console that we have successfully patched the version numbers in all of the files.
-                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The version numbers in all of the files.\n", 3);
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Adding the version number in all of the files.\n", 3);
 
                 // Simulate patching logic with an asynchronous delay.
                 await Task.Delay(700);
