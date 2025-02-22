@@ -1,6 +1,6 @@
 ﻿mode: ContinuousDeployment
 branches:
-  master:
+  main:
     # Matches branches named "main" or "master".
     regex: ^(main|master)$
     increment: Minor  # Increment the minor version on each commit on master.
@@ -9,7 +9,7 @@ branches:
     regex: ^(develop|dev)$
     increment: Patch
     source-branches:
-      - master
+      - main
       - hotfix
       - feature
   feature:
@@ -23,7 +23,7 @@ branches:
     regex: ^hotfix(es)?[/-]
     increment: Patch
     source-branches:
-      - master
+      - main
       - dev
 ignore:
   sha: []

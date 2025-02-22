@@ -13,6 +13,7 @@
 *         - Extracting a 7-character short SHA from the build metadata.
 *=============================================================================================*/
 
+using Avalonia.OpenGL;
 using System;
 using System.Reflection;
 
@@ -65,23 +66,41 @@ public static class VersionHelper
                 }
             }
 
-            // Extract the build metadata (everything after the '+').
-            string buildMetadata = rawInfoVersion.Substring(plusIndex + 1);
-
-            // Look for a '.' in the build metadata which separates a prefix from the SHA.
-            int dotIndex = buildMetadata.IndexOf('.');
             string shortSha = "";
-            if (dotIndex >= 0 && buildMetadata.Length >= dotIndex + 1 + 7)
+
+            // Check for the branch "main" because we have to get the version a bit differently since it's considered a release.
+            if (rawInfoVersion.Contains("main"))
             {
-                // If found, take the 7 characters immediately after the dot as the ShortSha.
-                shortSha = buildMetadata.Substring(dotIndex + 1, 7);
+                // Find the index of "main" in the string.
+                int mainIndex = rawInfoVersion.IndexOf("main");
+
+                // Find the period immediately after "main".
+                int periodIndex = rawInfoVersion.IndexOf('.', mainIndex + "main".Length);
+
+                // Take the 7 characters immediately after the dot as the ShortSha.
+                shortSha = rawInfoVersion.Substring(periodIndex + 1, 7);
             }
+
+            // For anything else that is not main.
             else
             {
-                // Fallback: use the first 7 characters of buildMetadata.
-                shortSha = buildMetadata.Length > 7 ? buildMetadata.Substring(0, 7) : buildMetadata;
-            }
+                // Extract the build metadata (everything after the '+').
+                string buildMetadata = rawInfoVersion.Substring(plusIndex + 1);
 
+                // Look for a '.' in the build metadata which separates a prefix from the SHA.
+                int dotIndex = buildMetadata.IndexOf('.');
+
+                if (dotIndex >= 0 && buildMetadata.Length >= dotIndex + 1 + 7)
+                {
+                    // If found, take the 7 characters immediately after the dot as the ShortSha.
+                    shortSha = buildMetadata.Substring(dotIndex + 1, 7);
+                }
+                else
+                {
+                    // Fallback: use the first 7 characters of buildMetadata.
+                    shortSha = buildMetadata.Length > 7 ? buildMetadata.Substring(0, 7) : buildMetadata;
+                }
+            }
             // Construct and return the final version string in the format: SemanticVersion + "+" + ShortSha.
             return $"{semVer}+{shortSha}";
         }

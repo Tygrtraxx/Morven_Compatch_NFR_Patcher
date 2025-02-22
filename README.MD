@@ -32,4 +32,4 @@ Rather than directly modifying the original mod's files (which can be overwritte
 
 ## License
 
-This project is licensed under the GNU GPL v3.0 License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
