@@ -26,16 +26,15 @@ public static class VersionHelper
             var assembly = typeof(VersionHelper).Assembly;
 
             // Retrieve the informational version from the assembly attribute.
-            // This attribute is typically set by versioning tools such as GitVersion or Git2SemVer.
-            string rawInfoVersion = assembly
-                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
-                .InformationalVersion;
+            string? rawInfoVersionNullable = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
 
             // If the informational version is missing, return a default message.
-            if (string.IsNullOrEmpty(rawInfoVersion))
+            if (string.IsNullOrEmpty(rawInfoVersionNullable))
             {
                 return "Version not available";
             }
+            // Now that we know it's not null or empty, assign it to a non-nullable variable.
+            string rawInfoVersion = rawInfoVersionNullable;
 
             // Find the '+' character that separates the semantic version from the build metadata.
             int plusIndex = rawInfoVersion.IndexOf('+');
@@ -54,8 +53,7 @@ public static class VersionHelper
                 semVer = semVer.Substring(2);
             }
 
-            // If the semantic version contains extra identifiers after the pre-release label,
-            // trim it so only the pre-release label remains.
+            // If the semantic version contains extra identifiers after the pre-release label, trim it so only the pre-release label remains.
             // For example: "2.0.1-alpha.THEBEAST.141" becomes "2.0.1-alpha".
             int hyphenIndex = semVer.IndexOf('-');
             if (hyphenIndex >= 0)

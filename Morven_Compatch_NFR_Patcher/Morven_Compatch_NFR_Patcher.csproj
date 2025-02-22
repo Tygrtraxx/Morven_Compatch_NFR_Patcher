@@ -1,4 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Main project properties -->
 	<PropertyGroup>
 		
 		<!-- Target .NET 8.0 with nullable enabled and the latest C# language version -->
@@ -9,14 +11,35 @@
 		<!-- This project produces a library -->
 		<OutputType>Library</OutputType>
 		
+		<!-- Enable GitVersion -->
+		<UseGitVersion>true</UseGitVersion>
+
+		<!-- Version properties will be set automatically by GitVersion.MsBuild -->
+		<Version>$(GitVersion_SemVer)</Version>
+		<AssemblyVersion>$(GitVersion_AssemblySemVer)</AssemblyVersion>
+		<FileVersion>$(GitVersion_AssemblySemFileVer)</FileVersion>
+		<InformationalVersion>$(GitVersion_InformationalVersion)</InformationalVersion>
+
 	</PropertyGroup>
 
+	<!-- Package references -->
 	<ItemGroup>
 		
 		<!-- Include Avalonia resource files -->
+		<!-- We also exclude the mod files and copy them to the output directory. -->
+		<!-- This is so the program can actually manipulate and move them as needed -->
 		<AvaloniaResource Include="Assets\**" />
+		<AvaloniaResource Remove="Assets\ModFiles\morven_patch_NFR.mod" />
+		<AvaloniaResource Remove="Assets\ModFiles\morven_patch_NFR\descriptor.mod" />
+		<Content Include="Assets\ModFiles\morven_patch_NFR.mod">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\ModFiles\morven_patch_NFR\descriptor.mod">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 		
 		<!-- Avalonia packages for UI functionality -->
+		
 		<PackageReference Include="Avalonia" Version="11.2.4" />
 		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.4" />
 		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.4" />

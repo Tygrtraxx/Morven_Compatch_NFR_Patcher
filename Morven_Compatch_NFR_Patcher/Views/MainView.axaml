@@ -9,9 +9,9 @@
     Line 23 : Associates this XAML file with the code-behind class 'MainView' in the specified namespace.
     Line 24 : Sets the default XML namespace for Avalonia UI elements.
     Line 25 : Provides XAML language constructs (e.g. x:Class, x:Name, etc.).
-    Line 26 : Used for design-time properties and data in Visual Studio.
-    Line 27 : Maps the 'helpers' prefix to the CLR namespace that contains the Helpers.
-    Line 28 : Maps the 'local' prefix to the CLR namespace that contains the Converters.
+    Line 26 : Maps the 'converters' prefix to the CLR namespace that contains the Converters.
+    Line 27 : Used for design-time properties and data in Visual Studio.
+    Line 28 : Maps the 'helpers' prefix to the CLR namespace that contains the Helpers.
     Line 29 : Enables markup compatibility features, such as ignoring design-time attributes at runtime.
     Line 30 : Maps the 'vm' prefix to the CLR namespace that contains the ViewModels.
     Line 31 : Specifies the design-time height for the control in the designer.
@@ -23,9 +23,9 @@
     x:Class="Morven_Compatch_NFR_Patcher.Views.MainView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:Morven_Compatch_NFR_Patcher.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="clr-namespace:Morven_Compatch_NFR_Patcher.Helpers"
-    xmlns:local="clr-namespace:Morven_Compatch_NFR_Patcher.Converters"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:Morven_Compatch_NFR_Patcher.ViewModels"
     d:DesignHeight="600"
@@ -36,7 +36,7 @@
     <!--  Defines reusable objects for this UserControl.  -->
     <!--  PointerOverToImageConverter - When the user hovers over an image with the mouse pointer it makes the image change.  -->
     <UserControl.Resources>
-        <local:PointerOverToImageConverter x:Key="PointerOverToImageConverter" />
+        <converters:PointerOverToImageConverter x:Key="PointerOverToImageConverter" />
     </UserControl.Resources>
 
     <!--  Sets a design-time DataContext for this UserControl.  -->

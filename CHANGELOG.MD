@@ -21,9 +21,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/)
 ## [2.1.0] - 2025-02-15
 
 ### Fixed
-- Fixed issues with rapid button clicks causing UI update problems.
+- Fixed an issue with rapid button clicks causing UI update problems.
 - Fixed an issue where rapid clicks were not properly clearing UI text.
-- Fix an issue where the GitVersion was displaying the default version string.
+- Fixed an issue where the files included in the patcher where not being properly recognized as output files, so it made the program not work.
+- Fixed an issue where the version files were being updated interally in the patcher, instead of updating the newly copied files located in the user's mod directory.
 
 ### Changed
 - Made the instructions a bit more clear for the user to understand better.

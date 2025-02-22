@@ -11,11 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		..\.gitattributes = ..\.gitattributes
 		..\.gitignore = ..\.gitignore
-		CHANGELOG.MD = CHANGELOG.MD
+		..\CHANGELOG.MD = ..\CHANGELOG.MD
 		..\Directory.Build.props = ..\Directory.Build.props
 		obj\gitversion.json = obj\gitversion.json
 		..\GitVersion.yml = ..\GitVersion.yml
-		README.MD = README.MD
+		..\README.MD = ..\README.MD
 	EndProjectSection
 EndProject
 Global

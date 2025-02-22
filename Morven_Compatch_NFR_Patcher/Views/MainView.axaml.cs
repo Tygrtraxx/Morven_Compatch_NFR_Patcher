@@ -99,9 +99,9 @@ namespace Morven_Compatch_NFR_Patcher.Views
         private async void PatchButton_Click(object sender, RoutedEventArgs e)
         {
             // Prevent re-entrancy: if already processing, exit.
-            if (_isProcessing) 
-            { 
-                return; 
+            if (_isProcessing)
+            {
+                return;
             }
 
             _isProcessing = true;
@@ -255,59 +255,10 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 // Output to the console that the mod folder has a valid Crusader Kings III folder, within a Paradox Interactive folder.
                 await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The Crusader Kings III folder is located within a folder called Paradox Interactive.", 0);
 
-                // Determine the absolute mod folder path and normalize the path to use forward slashes.
-                string normalizedModFolderPath = modFolderPath.Replace("\\", "/");
-
-                // Append the desired subfolder to the mod folder path.
-                string fullModPath = $"{normalizedModFolderPath}/morven_patch_NFR";
-
-                // Build the line that needs to be placed at the 7th line
-                string lineToInsert = $"path=\"{fullModPath}\"";
-
-                // Specify the path to the mod file to update.
-                string modFilePath = Path.Combine(AppContext.BaseDirectory, "Assets", "ModFiles", "morven_patch_NFR.mod");
-
-                // Ensure the file exists before attempting to modify it.
-                if (File.Exists(modFilePath))
-                {
-                    // Read all lines from the file
-                    var fileLines = new List<string>(File.ReadAllLines(modFilePath));
-
-                    // If the file already has at least 7 lines, replace the 7th line with the local mod's path location.
-                    if (fileLines.Count >= 7)
-                    {
-                        fileLines[6] = lineToInsert;
-
-                        // Output to the console that the program is changing the absolute path to the new mod.
-                        await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Modifying the absolute path, for the upcoming patched mod.", 3);
-                    }
-                    else
-                    {
-                        // If the file has fewer than 7 lines, append the local mod's path location to the file.
-                        fileLines.Add(lineToInsert);
-
-                        // Output to the console that the program is changing the absolute path to the new mod.
-                        await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Adding a new absolute path, for the upcoming patched mod.", 3);
-                    }
-
-                    // Write the modified content back to the file
-                    File.WriteAllLines(modFilePath, fileLines);
-                }
-
-                else
-                {
-                    // Tell the user something went wrong and the program couldn't find an important file that should be bundled with it.
-                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The mod file \"morven_patch_NFR.mod\" was not found.", 1);
-                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "--> (BUG?) You shouldn't be seeing this error. Contact Tygrtraxx. <--", 2);
-                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, modFilePath, 4);
-
-                    return;
-                }
-
-                // Define the source directory where the mod files are located.
+                // Define the source directory where the mod files in the patch program are located.
                 string sourceDir = Path.Combine(AppContext.BaseDirectory, "Assets", "ModFiles");
 
-                // Copy the newly edited mod file to the mod directory.
+                // Copy the mod file (morven_patch_NFR.mod) to the mod directory.
                 FileHelper.CopyDirectory(sourceDir, modFolderPath);
 
                 // Build the relative path from the Steam folder to the source base folder.
@@ -404,16 +355,65 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 }
 
                 // Output to the console that we have copied all of the files to the new patched mod.
-                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Copied all of the mod's files to the new patch mod.", 0);
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Copying all of the mod's files to the new patch mod.", 0);
 
                 // Output to the console that we have successfully deleted the necessary files patching the mod.
-                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Deleted the unnecessary files, effectively patching it.", 3);
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Deleted the \"No Fevour Rebalance\" files.", 3);
+
+                // Determine the absolute mod folder path and normalize the path to use forward slashes.
+                string normalizedModFolderPath = modFolderPath.Replace("\\", "/");
+
+                // Append the desired subfolder to the mod folder path.
+                string fullModPath = $"{normalizedModFolderPath}/morven_patch_NFR";
+
+                // Build the line that needs to be placed at the 7th line.
+                string lineToInsert = $"path=\"{fullModPath}\"";
+
+                // Specify the path to the mod file to update.
+                string modFilePath = Path.Combine(modFolderPath, "morven_patch_NFR.mod");
+
+                // Ensure the file exists before attempting to modify it.
+                if (File.Exists(modFilePath))
+                {
+                    // Read all lines from the file
+                    var fileLines = new List<string>(File.ReadAllLines(modFilePath));
+
+                    // If the file already has at least 7 lines, replace the 7th line with the local mod's path location.
+                    if (fileLines.Count >= 7)
+                    {
+                        fileLines[6] = lineToInsert;
+
+                        // Output to the console that the program is changing the absolute path to the new mod.
+                        await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Modifying the path, for the patched version of the mod.", 3);
+                    }
+                    else
+                    {
+                        // If the file has fewer than 7 lines, append the local mod's path location to the file.
+                        fileLines.Add(lineToInsert);
+
+                        // Output to the console that the program is changing the absolute path to the new mod.
+                        await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Adding a new path, for the patched version of the mod.", 3);
+                    }
+
+                    // Write the modified content back to the file
+                    File.WriteAllLines(modFilePath, fileLines);
+                }
+
+                else
+                {
+                    // Tell the user something went wrong and the program couldn't find an important file that should be bundled with it.
+                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The mod file \"morven_patch_NFR.mod\" was not found.", 1);
+                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "(BUG?) You shouldn't be seeing this error. Contact Tygrtraxx.", 2);
+                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, modFilePath, 4);
+
+                    return;
+                }
 
                 // Update the mod files with the correct game version
-                ModFileUpdater.UpdateModFiles(gameVersion);
+                ModFileUpdater.UpdateModFiles(modFolderPath, gameVersion);
 
-                // Output to the console that we have successfully patched the version numbers in all of the files.
-                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The version numbers in all of the files.\n", 3);
+                // Output to the console that we have are adding the correct version number to all of the files.
+                await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "Adding the correct version number to all of the files.\n", 3);
 
                 // Simulate patching logic with an asynchronous delay.
                 await Task.Delay(700);
