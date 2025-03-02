@@ -18,16 +18,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/)
 
 ------------------------------------------------------------------------------------------------
 
-## [2.1.0] - 2025-02-15
+## [2.0.5] - 2025-03-02
+
+### Changed
+- Update the READ.MD file.
+------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------
+
+## [2.0.4] - 2025-02-22
+
+### Changed
+- Update the READ.MD file.
+------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------
+
+## [2.0.3] - 2025-02-22
+
+### Changed
+- Update the READ.MD file.
+------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------
+
+## [2.0.2] - 2025-02-22
+
+### Changed
+- Update the READ.MD file.
+------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------
+
+## [2.0.1] - 2025-02-16
+
+### Added
+- Added a README.MD file for the user to explain what the Patcher is and how to use it.
+- Added a CHANGELOG.MD file for explaining the changes of the patcher.
+- Added a LICENCE.MD file for the license.
 
 ### Fixed
 - Fixed an issue with rapid button clicks causing UI update problems.
 - Fixed an issue where rapid clicks were not properly clearing UI text.
-- Fixed an issue where the files included in the patcher where not being properly recognized as output files, so it made the program not work.
-- Fixed an issue where the version files were being updated interally in the patcher, instead of updating the newly copied files located in the user's mod directory.
 
 ### Changed
 - Made the instructions a bit more clear for the user to understand better.
+
 ------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------------
@@ -57,8 +93,3 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/)
 ------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------------
-
-[Unreleased]:
-[1.0.0]: https://github.com/Tygrtraxx/Morven_Compatch_NFR_Patcher/releases/tag/v1.0.0 
-[2.0.0]: https://github.com/Tygrtraxx/Morven_Compatch_NFR_Patcher/releases/tag/v2.0.0
-[2.1.0]: https://github.com/Tygrtraxx/Morven_Compatch_NFR_Patcher/releases/tag/v2.1.0
