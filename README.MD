@@ -9,9 +9,9 @@
 
 ## How It Works
 
-Rather than modifying the original mod�s files directly (which can be overwritten by updates), this patcher:
+Rather than modifying the original mod files directly (which can be overwritten by updates), this patcher:
 - **Copies the mod files:** Creates a duplicate in your mods folder.
-- **Applies targeted modifications:** Removes only the specific files associated with [Fervour Midpoint Rebalance � Fervor Tends Towards 50%](https://steamcommunity.com/sharedfiles/filedetails/?id=2249720608) that cause the imbalance.
+- **Applies targeted modifications:** Removes only the specific files associated with [Fervour Midpoint Rebalance - Fervor Tends Towards 50%](https://steamcommunity.com/sharedfiles/filedetails/?id=2249720608) that cause the imbalance.
 - **Keeps the original intact:** Allowing you to reinstall or re-enable the unmodified mod if needed.
 
 ## Installation & Usage
@@ -27,7 +27,7 @@ Rather than modifying the original mod�s files directly (which can be overwrit
    After setting the folder paths, click the **Patch** button. The patcher will:
    - Copy the necessary mod files.
    - Apply the fixes to disable the unbalanced heresy triggers.
-   - Remove the files associated with [Fervour Midpoint Rebalance � Fervor Tends Towards 50%](https://steamcommunity.com/sharedfiles/filedetails/?id=2249720608).
+   - Remove the files associated with [Fervour Midpoint Rebalance - Fervor Tends Towards 50%](https://steamcommunity.com/sharedfiles/filedetails/?id=2249720608).
 
 4. **Disable Conflicting Mods:**  
    **Important:** Before launching the game, make sure you disable or uninstall both of the following mods:
