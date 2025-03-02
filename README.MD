@@ -36,7 +36,7 @@ Rather than modifying the original mod’s files directly (which can be overwritte
    This step is crucial to avoid mod conflicts, corrupted saves, or crashes.
 
 5. **Enjoy:**  
-   Launch Crusader Kings III.
+   - Enable the newly patched version in your mod manager and launch Crusader Kings III.
  
 **Multiplayer Note:**  
 For anyone playing in multiplayer with this patcher, it is **HIGHLY RECOMMENDED** that all players run this patcher again before starting a playthrough. Since this is considered a local mod after patching, it does not update automatically when the original Kaepbora's Compatch is updated. For example, if Player 1 patched their mod two weeks ago while Player 2 patched theirs more recently—and Kaepbora has since tweaked his mod—the players will have different mod checksums. This mismatch makes it impossible to play together.
