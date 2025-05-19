@@ -5,7 +5,7 @@
 ## Prerequisites
 
 - **Kaepbora's Morven's Mods Compatch:**  
-  You must have [Kaepbora's Morven's Mods 1.14 Compatch](https://steamcommunity.com/sharedfiles/filedetails/?id=3001489429) installed before using this patcher.
+  You must have [Kaepbora's Morven's Mods 1.16 Compatch](https://steamcommunity.com/sharedfiles/filedetails/?id=3001489429) installed before using this patcher.
 
 ## How It Works
 

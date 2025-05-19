@@ -18,6 +18,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/)
 
 ------------------------------------------------------------------------------------------------
 
+## [2.0.8] - 2025-05-18
+
+### Changed
+- Update the READ.MD file.
+
+### Fixed
+- Fixed an issue where the program was not getting the right version for the "descriptor.mod" in 1.16, because Kaepbora added additional tags in his patch
+------------------------------------------------------------------------------------------------
+
 ## [2.0.7] - 2025-03-02
 
 ### Changed

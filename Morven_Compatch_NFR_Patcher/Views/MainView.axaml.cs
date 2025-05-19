@@ -279,23 +279,23 @@ namespace Morven_Compatch_NFR_Patcher.Views
                 // Read all lines from the file (We are looking for the version in the file).
                 string[] lines = File.ReadAllLines(descriptorFilePath);
 
-                // Check if there are at least 6 lines in the file.
-                if (lines.Length < 6)
+                // Check if there are at least 8 lines in the file.
+                if (lines.Length < 8)
                 {
-                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, $"The file \"descriptor.mod\" is missing its version number on line 6.", 1);
+                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, $"The file \"descriptor.mod\" is missing its version number on line 8.", 1);
 
                     return;
                 }
 
-                // The 6th line is at index 5.
-                string sixthLine = lines[5];
+                // The 8th line is at index 7.
+                string eigthLine = lines[7];
 
                 // Use a regular expression to extract the text between the first pair of quotation marks.
                 // The regex pattern \"([^\"]+)\" captures the text between quotes.
-                Match match = Regex.Match(sixthLine, "\"([^\"]+)\"");
+                Match match = Regex.Match(eigthLine, "\"([^\"]+)\"");
                 if (!match.Success)
                 {
-                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The game version was not found on line 6 in the \"descriptor.mod\" file.", 1);
+                    await ConsoleOutputTextHelper.ShowStatusText(ConsoleOutputTextBlock, "The game version was not found on line 8 in the \"descriptor.mod\" file.", 1);
 
                     return;
                 }
